@@ -1,0 +1,50 @@
+# Environment Configuration
+.env
+.env.local
+.env.*.local
+*.env
+
+# Dependencies
+node_modules/
+package-lock.json.bak
+
+# Build Outputs
+dist/
+dist-ssr/
+build/
+*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Android & Mobile Build Artifacts
+.gradle/
+**/android/.gradle/
+**/android/app/build/
+**/android/build/
+**/capacitor-cordova-android-plugins/build/
+*.apk
+*.aab
+local.properties
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Temporary Office & Vite lock files
+*.tmp
+~*
+*.temp
