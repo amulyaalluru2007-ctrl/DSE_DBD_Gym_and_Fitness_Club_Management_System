@@ -1,0 +1,427 @@
+/* =========================================================
+   CUSTOMER SIDEBAR 3D GLASSMORPHIC DOCK
+   Exact match to Navbar 3D GUI (media_1789296863879.png)
+   - 3D Frosted Obsidian Glass Vertical Dock
+   - Recessed 3D Bevelled Discs & Embossed Silver Chrome Icons
+   - Chromatic Aberration / Iridescent Optical Rainbow Ring
+   - Physical Liquid Sliding 3D Active Pill
+   ========================================================= */
+
+.customer-sidebar-3d-wrapper {
+  width: 280px;
+  flex-shrink: 0;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  padding: 20px 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Master 3D Capsule Dock Container */
+.customer-sidebar-3d-dock {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: rgba(11, 16, 28, 0.68);
+  backdrop-filter: blur(36px) saturate(180%) contrast(108%);
+  -webkit-backdrop-filter: blur(36px) saturate(180%) contrast(108%);
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.48),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.65),
+    0 20px 50px rgba(0, 0, 0, 0.65),
+    0 0 30px rgba(0, 180, 255, 0.12);
+  padding: 20px 12px;
+  box-sizing: border-box;
+  transition: all 0.35s ease;
+}
+
+.customer-sidebar-3d-dock:hover {
+  border-color: rgba(255, 255, 255, 0.38);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.58),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.75),
+    0 24px 55px rgba(0, 0, 0, 0.72),
+    0 0 36px rgba(0, 180, 255, 0.18);
+}
+
+/* Brand Section */
+.customer-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  border-radius: 16px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.customer-sidebar-brand:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-1px);
+}
+
+.sidebar-brand-disc {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1e3352 0%, #0d1a2d 100%);
+  border: 1.2px solid rgba(0, 180, 255, 0.6);
+  box-shadow:
+    0 0 18px rgba(0, 180, 255, 0.45),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00d2ff;
+  flex-shrink: 0;
+}
+
+.sidebar-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-brand-title {
+  font-size: 1.12rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  line-height: 1.1;
+}
+
+.sidebar-brand-sub {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #00b4ff;
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* Nav Modules List */
+.customer-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  position: relative;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+/* Physical 3D Liquid Sliding Active Pill */
+.customer-sidebar-sliding-pill {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, rgba(26, 36, 56, 0.94) 0%, rgba(10, 15, 26, 0.98) 100%);
+  border: 1.2px solid rgba(255, 255, 255, 0.45);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.6),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.92),
+    0 8px 24px rgba(0, 0, 0, 0.65),
+    0 0 20px rgba(0, 180, 255, 0.22);
+  pointer-events: none;
+  z-index: 1;
+  transition:
+    transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.25s ease;
+}
+
+/* 3D Sidebar Module Items */
+.customer-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 14px 6px 6px;
+  border-radius: 9999px;
+  background: transparent;
+  border: 1.2px solid transparent;
+  color: #cbd5e1;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  z-index: 2;
+  text-decoration: none;
+  outline: none;
+  transition: color 0.22s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.customer-sidebar-item:hover {
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+.customer-sidebar-item.active {
+  color: #ffffff !important;
+}
+
+/* 3D Circular Disc & Chromatic Aberration Prism Ring */
+.sidebar-3d-disc-wrapper {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Iridescent Chromatic Spectrum Halo Ring */
+.sidebar-3d-chromatic-ring {
+  position: absolute;
+  inset: -1.5px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 180deg,
+    #ff3366 0deg,
+    #ff9933 60deg,
+    #ffff33 120deg,
+    #33ff99 180deg,
+    #33ccff 240deg,
+    #9933ff 300deg,
+    #ff3366 360deg
+  );
+  opacity: 0;
+  filter: blur(1px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  z-index: 0;
+}
+
+.customer-sidebar-item:hover .sidebar-3d-chromatic-ring,
+.sidebar-3d-chromatic-ring.active-ring {
+  opacity: 0.95;
+  animation: chromaticRingSpin 4s linear infinite;
+}
+
+@keyframes chromaticRingSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 3D Physical Metallic Disc */
+.sidebar-3d-disc {
+  position: relative;
+  z-index: 1;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #222c3f 0%, #0d131f 75%, #05080e 100%);
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.65),
+    inset 0 -1.5px 3px rgba(0, 0, 0, 0.9),
+    0 4px 10px rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.customer-sidebar-item:hover .sidebar-3d-disc {
+  transform: scale(1.06);
+  box-shadow:
+    inset 0 1.5px 2.5px rgba(255, 255, 255, 0.8),
+    inset 0 -1.5px 3px rgba(0, 0, 0, 0.95),
+    0 6px 14px rgba(0, 0, 0, 0.75),
+    0 0 12px rgba(0, 180, 255, 0.4);
+}
+
+/* Embossed Silver Chrome Icons */
+.sidebar-3d-icon-svg {
+  width: 17px;
+  height: 17px;
+  display: block;
+  filter:
+    drop-shadow(0 1.5px 1px rgba(0, 0, 0, 0.85))
+    drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.7));
+  transition: filter 0.25s ease;
+}
+
+.customer-sidebar-item:hover .sidebar-3d-icon-svg,
+.customer-sidebar-item.active .sidebar-3d-icon-svg {
+  filter:
+    drop-shadow(0 1.5px 1.5px rgba(0, 0, 0, 0.9))
+    drop-shadow(0 0 6px rgba(0, 180, 255, 0.65))
+    drop-shadow(0 -0.5px 0.5px rgba(255, 255, 255, 0.9));
+}
+
+/* Typography Label & Index */
+.sidebar-item-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  flex: 1;
+  text-align: left;
+}
+
+.sidebar-item-index {
+  font-size: 0.7rem;
+  font-family: "JetBrains Mono", monospace;
+  opacity: 0.45;
+  font-weight: 700;
+}
+
+.customer-sidebar-item.active .sidebar-item-index {
+  opacity: 0.85;
+  color: #00b4ff;
+}
+
+/* Footer Card & Actions */
+.customer-sidebar-footer {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-user-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0084ff 0%, #0052cc 100%);
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px rgba(0, 132, 255, 0.4);
+}
+
+.sidebar-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-user-name {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.sidebar-user-role {
+  font-size: 0.65rem;
+  color: #00b4ff;
+  font-weight: 700;
+}
+
+.sidebar-logout-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #f87171;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sidebar-logout-action:hover {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: rgba(239, 68, 68, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Trainer 3D Sidebar Specific Tuning (12 Modules) */
+.trainer-sidebar-3d {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 90;
+}
+
+.sidebar-switch-portal-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(0, 180, 255, 0.08);
+  border: 1px solid rgba(0, 180, 255, 0.28);
+  color: #00b4ff;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 6px;
+}
+
+.sidebar-switch-portal-action:hover {
+  background: rgba(0, 180, 255, 0.18);
+  color: #ffffff;
+  border-color: rgba(0, 180, 255, 0.55);
+  transform: translateY(-1px);
+}
+
+.trainer-sidebar-3d .customer-sidebar-nav {
+  gap: 3px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.trainer-sidebar-3d .customer-sidebar-nav::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.trainer-sidebar-3d .customer-sidebar-item {
+  padding: 5px 12px 5px 6px;
+}
+
+.trainer-sidebar-3d .sidebar-3d-disc-wrapper {
+  width: 32px;
+  height: 32px;
+}
+
+.trainer-sidebar-3d .sidebar-3d-disc {
+  width: 28px;
+  height: 28px;
+}
+
+.trainer-sidebar-3d .sidebar-3d-icon-svg {
+  width: 14px;
+  height: 14px;
+}
+
+.trainer-sidebar-3d .sidebar-item-label {
+  font-size: 0.81rem;
+}
+
+.trainer-sidebar-3d .sidebar-item-index {
+  font-size: 0.62rem;
+}
+

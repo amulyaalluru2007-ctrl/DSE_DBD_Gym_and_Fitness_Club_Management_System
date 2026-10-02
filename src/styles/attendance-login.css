@@ -1,0 +1,605 @@
+/* FitPulse Biometric Turnstile Attendance Login Styles */
+.attendance-kiosk-page {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background: radial-gradient(circle at 50% 20%, #0c1222 0%, #060913 70%, #020408 100%);
+  color: #f1f5f9;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.kiosk-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+.kiosk-glow-orb {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(140px);
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.kiosk-glow-orb.top-left {
+  top: -150px;
+  left: -150px;
+  background: #00e5ff;
+}
+
+.kiosk-glow-orb.bottom-right {
+  bottom: -150px;
+  right: -150px;
+  background: #10b981;
+}
+
+/* Kiosk Header */
+.kiosk-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(6, 9, 19, 0.7);
+  backdrop-filter: blur(12px);
+}
+
+.kiosk-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.kiosk-logo-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00e5ff 0%, #0070f3 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+}
+
+.kiosk-brand-title {
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kiosk-brand-sub {
+  font-size: 0.75rem;
+  color: #00e5ff;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.kiosk-status-tag {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #10b981;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.kiosk-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+  animation: kioskPulse 1.5s infinite;
+}
+
+@keyframes kioskPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Kiosk Main Content */
+.kiosk-body {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 36px 24px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .kiosk-body {
+    grid-template-columns: 1fr;
+    padding: 20px 16px;
+  }
+  .kiosk-header {
+    padding: 16px 20px;
+  }
+}
+
+/* Camera Scanner Terminal Card */
+.kiosk-terminal-card {
+  background: rgba(13, 20, 36, 0.75);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(0, 229, 255, 0.08);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+}
+
+.kiosk-terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.kiosk-terminal-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kiosk-viewport-container {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #02050b;
+  border: 2px solid rgba(0, 229, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kiosk-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); /* Mirror view for natural interaction */
+}
+
+/* Biometric Oval & Reticles Overlay */
+.biometric-hud-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.biometric-oval {
+  position: relative;
+  width: 220px;
+  height: 290px;
+  border-radius: 50% / 60%;
+  border: 2px dashed rgba(0, 229, 255, 0.7);
+  box-shadow: 0 0 25px rgba(0, 229, 255, 0.25), inset 0 0 25px rgba(0, 229, 255, 0.15);
+  transition: all 0.3s ease;
+}
+
+.biometric-oval.matched {
+  border-color: #10b981;
+  box-shadow: 0 0 35px rgba(16, 185, 129, 0.5), inset 0 0 35px rgba(16, 185, 129, 0.2);
+}
+
+.biometric-oval.scanning {
+  border-color: #00e5ff;
+  animation: ovalPulse 1s infinite alternate;
+}
+
+@keyframes ovalPulse {
+  0% { transform: scale(0.98); }
+  100% { transform: scale(1.02); }
+}
+
+/* Laser Scan Sweep Line */
+.biometric-scan-line {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #00e5ff, #ffffff, #00e5ff, transparent);
+  box-shadow: 0 0 15px #00e5ff, 0 0 25px #00e5ff;
+  animation: laserScan 2s ease-in-out infinite;
+}
+
+@keyframes laserScan {
+  0% { top: 15%; opacity: 0.3; }
+  50% { top: 85%; opacity: 1; }
+  100% { top: 15%; opacity: 0.3; }
+}
+
+/* Corner Reticles */
+.hud-corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-color: #00e5ff;
+}
+
+.hud-corner.top-left {
+  top: 14px;
+  left: 14px;
+  border-top: 3px solid;
+  border-left: 3px solid;
+}
+
+.hud-corner.top-right {
+  top: 14px;
+  right: 14px;
+  border-top: 3px solid;
+  border-right: 3px solid;
+}
+
+.hud-corner.bottom-left {
+  bottom: 14px;
+  left: 14px;
+  border-bottom: 3px solid;
+  border-left: 3px solid;
+}
+
+.hud-corner.bottom-right {
+  bottom: 14px;
+  right: 14px;
+  border-bottom: 3px solid;
+  border-right: 3px solid;
+}
+
+/* Telemetry readout */
+.hud-telemetry {
+  position: absolute;
+  bottom: 12px;
+  left: 18px;
+  right: 18px;
+  display: flex;
+  justify-content: space-between;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  color: #00e5ff;
+  text-shadow: 0 0 6px rgba(0, 229, 255, 0.6);
+}
+
+/* Identity Card */
+.kiosk-identity-card {
+  background: rgba(13, 20, 36, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 26px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.kiosk-identity-card.verified {
+  border-color: rgba(16, 185, 129, 0.5);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(16, 185, 129, 0.2);
+}
+
+.identity-badge-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.identity-avatar-wrap {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 3px solid #00e5ff;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+  margin-right: 18px;
+}
+
+.identity-avatar-wrap.verified {
+  border-color: #10b981;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
+}
+
+.identity-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.identity-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 20px 0;
+  background: rgba(6, 9, 19, 0.5);
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.identity-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.identity-detail-label {
+  font-size: 0.72rem;
+  color: #8da4be;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.identity-detail-value {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+/* Turnstile Gate Unlock Box */
+.turnstile-unlock-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1.5px solid #10b981;
+  color: #34d399;
+  font-weight: 800;
+  margin-bottom: 20px;
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
+  animation: bannerSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes bannerSlideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Action Buttons */
+.kiosk-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.kiosk-action-btn.primary {
+  background: linear-gradient(135deg, #00e5ff 0%, #0070f3 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 112, 243, 0.35);
+}
+
+.kiosk-action-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 112, 243, 0.5);
+}
+
+.kiosk-action-btn.secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  margin-top: 10px;
+}
+
+.kiosk-action-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+}
+
+/* Quick simulation persona buttons */
+.persona-pills-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.persona-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.persona-pill:hover {
+  background: rgba(0, 229, 255, 0.12);
+  border-color: #00e5ff;
+  color: #ffffff;
+}
+
+/* =====================================================
+   APPLE IPHONE SCREEN FACE LOCK HUD STYLES
+===================================================== */
+.iphone-faceid-badge {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 6px 16px;
+  border-radius: 9999px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  z-index: 20;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.iphone-faceid-badge .iphone-lock-icon {
+  font-size: 1rem;
+  transition: transform 0.25s ease;
+}
+
+.iphone-faceid-badge .iphone-lock-text {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #e2e8f0;
+}
+
+.iphone-faceid-badge.locked-on {
+  border-color: #00e5ff;
+  background: rgba(0, 229, 255, 0.15);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+}
+.iphone-faceid-badge.locked-on .iphone-lock-text {
+  color: #00e5ff;
+}
+
+.iphone-faceid-badge.unlocked {
+  background: rgba(16, 185, 129, 0.25);
+  border-color: #10b981;
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+  transform: translateX(-50%) scale(1.05);
+}
+.iphone-faceid-badge.unlocked .iphone-lock-text {
+  color: #34d399;
+}
+.iphone-faceid-badge.unlocked .iphone-lock-icon {
+  transform: rotate(-12deg);
+}
+
+.iphone-faceid-badge.mismatch {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: #ef4444;
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.5);
+  animation: iphoneShake 0.4s ease;
+}
+.iphone-faceid-badge.mismatch .iphone-lock-text {
+  color: #f87171;
+}
+
+@keyframes iphoneShake {
+  0%, 100% { transform: translateX(-50%); }
+  20%, 60% { transform: translateX(calc(-50% - 8px)); }
+  40%, 80% { transform: translateX(calc(-50% + 8px)); }
+}
+
+/* Clamping Face ID Bracket Reticles */
+.iphone-face-brackets {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.iphone-face-brackets.active-target {
+  transform: scale(0.96);
+}
+
+.bracket-corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: rgba(0, 229, 255, 0.8);
+  transition: all 0.25s ease;
+}
+
+.bracket-corner.tl {
+  top: 10px;
+  left: 10px;
+  border-top: 3.5px solid;
+  border-left: 3.5px solid;
+  border-top-left-radius: 12px;
+}
+.bracket-corner.tr {
+  top: 10px;
+  right: 10px;
+  border-top: 3.5px solid;
+  border-right: 3.5px solid;
+  border-top-right-radius: 12px;
+}
+.bracket-corner.bl {
+  bottom: 10px;
+  left: 10px;
+  border-bottom: 3.5px solid;
+  border-left: 3.5px solid;
+  border-bottom-left-radius: 12px;
+}
+.bracket-corner.br {
+  bottom: 10px;
+  right: 10px;
+  border-bottom: 3.5px solid;
+  border-right: 3.5px solid;
+  border-bottom-right-radius: 12px;
+}
+
+.biometric-oval.matched .bracket-corner {
+  border-color: #10b981;
+}
+
+.biometric-oval.mismatch .bracket-corner {
+  border-color: #ef4444;
+}
+
+.iphone-unlock-pulse {
+  position: absolute;
+  inset: -15px;
+  border-radius: 50% / 60%;
+  border: 3px solid #10b981;
+  animation: unlockShockwave 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  pointer-events: none;
+}
+
+@keyframes unlockShockwave {
+  0% { transform: scale(0.95); opacity: 1; }
+  100% { transform: scale(1.35); opacity: 0; }
+}

@@ -1,0 +1,512 @@
+/* =========================================================
+   FITPULSE 3D GLASSMORPHIC CAPSULE NAVBAR & 3D SECTION GUI
+   Exact match to: media_1789296863879.png
+   - 3D Frosted Obsidian Glass Capsule
+   - Video Background Adaptive Translucency
+   - Delayed Entrance (Pure Video on first scrolls)
+   - Physical Liquid Sliding Active Capsule Indicator
+   - Chromatic Aberration / Iridescent Optical Rainbow Ring
+   - Recessed 3D Bevelled Discs & Embossed Silver Chrome Icons
+   - Unified 3D GUI for Sections After Video (Plans, System, Trainers)
+   ========================================================= */
+
+:root {
+  /* Translucent frosted glass tuned for video contrast */
+  --nav-bg: rgba(11, 16, 28, 0.58);
+  --nav-border-highlight: rgba(255, 255, 255, 0.32);
+  --nav-border-subtle: rgba(255, 255, 255, 0.12);
+  --nav-cyan: #00b4ff;
+  --nav-cyan-glow: rgba(0, 180, 255, 0.35);
+  --nav-text-active: #ffffff;
+  --nav-text-inactive: #cbd5e1;
+}
+
+/* =========================================================
+   MASTER FLOATING CAPSULE DOCK & ENTRANCE REVEAL
+   ========================================================= */
+.navbar-3d-wrapper {
+  position: fixed;
+  top: 22px;
+  left: 50%;
+  /* Hidden above viewport initially until user scrolls down video */
+  transform: translateX(-50%) translateY(-110px) scale(0.92);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition:
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.45s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Glides in smoothly after user scrolls past intro frames */
+.navbar-3d-wrapper.visible {
+  transform: translateX(-50%) translateY(0) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.navbar-3d-dock {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(36px) saturate(180%) contrast(108%);
+  -webkit-backdrop-filter: blur(36px) saturate(180%) contrast(108%);
+  border-radius: 9999px;
+  border: 1px solid var(--nav-border-highlight);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.48),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.65),
+    0 18px 45px rgba(0, 0, 0, 0.55),
+    0 0 28px rgba(0, 180, 255, 0.14);
+  position: relative;
+  transition: all 0.35s ease;
+}
+
+.navbar-3d-dock:hover {
+  border-color: rgba(255, 255, 255, 0.44);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.62),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.75),
+    0 22px 52px rgba(0, 0, 0, 0.7),
+    0 0 36px rgba(0, 180, 255, 0.22);
+}
+
+/* =========================================================
+   PHYSICAL LIQUID SLIDING 3D ACTIVE CAPSULE PILL
+   Smoothly slides between modules (Home -> System -> Plans...)
+   ========================================================= */
+.navbar-3d-sliding-pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, rgba(26, 36, 56, 0.92) 0%, rgba(10, 15, 26, 0.96) 100%);
+  border: 1.2px solid rgba(255, 255, 255, 0.45);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.6),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.92),
+    0 8px 24px rgba(0, 0, 0, 0.65),
+    0 0 20px rgba(0, 180, 255, 0.22);
+  pointer-events: none;
+  z-index: 1;
+  transition:
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s ease;
+}
+
+/* =========================================================
+   3D CAPSULE MODULE BUTTONS
+   ========================================================= */
+.navbar-3d-module {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 18px 5px 6px;
+  border-radius: 9999px;
+  background: transparent;
+  border: 1.2px solid transparent;
+  color: var(--nav-text-inactive);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  z-index: 2;
+  transition: color 0.25s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  outline: none;
+}
+
+.navbar-3d-module:hover {
+  color: #ffffff;
+  transform: translateY(-1.5px);
+}
+
+.navbar-3d-module:active {
+  transform: translateY(0.5px) scale(0.97);
+}
+
+.navbar-3d-module.active {
+  color: var(--nav-text-active) !important;
+}
+
+/* =========================================================
+   3D CIRCULAR DISC & CHROMATIC ABERRATION PRISM RING
+   Exact match to reference photo
+   ========================================================= */
+.navbar-3d-disc-wrapper {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Chromatic Optical Halo Prism Ring (Conic multi-stop iridescent rainbow) */
+.navbar-3d-chromatic-ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 215deg at 50% 50%,
+    #a855f7 0deg,
+    #3b82f6 42deg,
+    #06b6d4 85deg,
+    #ffffff 125deg,
+    #fef08a 155deg,
+    #f59e0b 195deg,
+    #ec4899 265deg,
+    #a855f7 360deg
+  );
+  opacity: 0.18;
+  filter: blur(0.6px);
+  transition: opacity 0.35s ease, filter 0.35s ease, transform 0.35s ease;
+  z-index: 1;
+}
+
+/* Light up iridescent rainbow ring on Active & Hover */
+.navbar-3d-module.active .navbar-3d-chromatic-ring,
+.navbar-3d-chromatic-ring.active-ring {
+  opacity: 1 !important;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 10px rgba(59, 130, 246, 0.55)) !important;
+  transform: scale(1.03);
+}
+
+.navbar-3d-module:hover .navbar-3d-chromatic-ring {
+  opacity: 0.85;
+  filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.45));
+}
+
+/* Inner Recessed 3D Dark Bevelled Disc */
+.navbar-3d-disc {
+  position: relative;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 28%, #283040 0%, #131722 55%, #080a10 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.4),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.95),
+    0 4px 10px rgba(0, 0, 0, 0.8);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.navbar-3d-module.active .navbar-3d-disc {
+  background: radial-gradient(circle at 35% 28%, #323d52 0%, #171c2a 55%, #0a0d14 100%);
+  box-shadow:
+    inset 0 1.8px 2px rgba(255, 255, 255, 0.65),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.98),
+    0 4px 12px rgba(0, 0, 0, 0.85);
+}
+
+/* Embossed Silver Metallic Chrome Icon */
+.navbar-3d-icon-svg {
+  width: 17px;
+  height: 17px;
+  display: block;
+  filter: drop-shadow(0 1.5px 2px rgba(0, 0, 0, 0.85));
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.navbar-3d-module:hover .navbar-3d-icon-svg,
+.navbar-3d-module.active .navbar-3d-icon-svg {
+  transform: scale(1.08);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+}
+
+/* Typography Label */
+.navbar-3d-label {
+  font-size: 0.93rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: inherit;
+  white-space: nowrap;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+.navbar-3d-module.active .navbar-3d-label {
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6), 0 0 12px rgba(255, 255, 255, 0.35);
+}
+
+/* Portal Popover Dropdown */
+.navbar-3d-portal-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 255px;
+  background: rgba(11, 16, 28, 0.92);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.4),
+    0 18px 45px rgba(0, 0, 0, 0.8),
+    0 0 30px rgba(0, 180, 255, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 1000;
+  animation: navDropdownFade 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes navDropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.navbar-3d-portal-opt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #e2e8f0;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.navbar-3d-portal-opt:hover {
+  background: rgba(0, 180, 255, 0.16);
+  border-color: rgba(0, 180, 255, 0.38);
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+.navbar-3d-portal-opt-icon {
+  font-size: 1.1rem;
+}
+
+.navbar-3d-portal-opt-title {
+  font-weight: 800;
+  font-size: 0.86rem;
+  color: #ffffff;
+}
+
+.navbar-3d-portal-opt-sub {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* =========================================================
+   SECTIONS AFTER VIDEO: UNIFIED 3D GLASS GUI
+   Match Navbar 3D Aesthetics:
+   - Obsidian Glass Cards with Specular White Rims
+   - Recessed 3D Discs
+   - Chromatic Optical Halos
+   ========================================================= */
+
+/* 1. MEMBERSHIP PLANS CARDS */
+.membership-section .plan-card {
+  background: linear-gradient(165deg, rgba(16, 23, 38, 0.82) 0%, rgba(8, 12, 22, 0.92) 100%) !important;
+  border: 1.2px solid rgba(255, 255, 255, 0.24) !important;
+  border-radius: 24px !important;
+  backdrop-filter: blur(28px) !important;
+  -webkit-backdrop-filter: blur(28px) !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.45),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.85),
+    0 20px 50px rgba(0, 0, 0, 0.65),
+    0 0 25px rgba(0, 180, 255, 0.12) !important;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative !important;
+}
+
+.membership-section .plan-card:hover {
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  box-shadow:
+    inset 0 1.8px 2px rgba(255, 255, 255, 0.65),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.95),
+    0 25px 60px rgba(0, 0, 0, 0.75),
+    0 0 35px rgba(0, 180, 255, 0.25) !important;
+  transform: translateY(-6px) !important;
+}
+
+.membership-section .plan-featured {
+  border: 1.2px solid rgba(0, 180, 255, 0.5) !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.55),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.9),
+    0 24px 60px rgba(0, 0, 0, 0.75),
+    0 0 40px rgba(0, 180, 255, 0.3) !important;
+}
+
+/* Plan 3D Disc Number Indicator */
+.membership-section .plan-card .plan-number {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 28%, #283040 0%, #131722 55%, #080a10 100%);
+  box-shadow:
+    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.4),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.95),
+    0 4px 10px rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 16px;
+}
+
+/* 3D Capsule CTA Button */
+.membership-section .plan-button {
+  border-radius: 9999px !important;
+  background: linear-gradient(180deg, #0084ff 0%, #0056d6 100%) !important;
+  border: 1.2px solid rgba(255, 255, 255, 0.45) !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.65),
+    0 8px 25px rgba(0, 132, 255, 0.5) !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+  color: #ffffff !important;
+}
+
+.membership-section .plan-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.8),
+    0 12px 32px rgba(0, 132, 255, 0.75) !important;
+}
+
+/* Most Popular Chromatic Badge */
+.membership-section .plan-badge {
+  border-radius: 9999px !important;
+  background: linear-gradient(90deg, #8b5cf6, #3b82f6, #06b6d4, #f59e0b) !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.1em !important;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4) !important;
+}
+
+/* 2. ECOSYSTEM CORE & NODES */
+.ecosystem-section .core-center {
+  background: radial-gradient(circle at 35% 28%, #222c40 0%, #101522 55%, #070910 100%) !important;
+  border: 2px solid rgba(255, 255, 255, 0.35) !important;
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, 0.5),
+    inset 0 -3px 6px rgba(0, 0, 0, 0.95),
+    0 0 50px rgba(0, 180, 255, 0.35),
+    0 15px 40px rgba(0, 0, 0, 0.8) !important;
+}
+
+.ecosystem-node {
+  background: rgba(12, 17, 29, 0.82) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 16px !important;
+  backdrop-filter: blur(20px) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.35),
+    0 12px 32px rgba(0, 0, 0, 0.55) !important;
+  transition: all 0.3s ease !important;
+}
+
+.ecosystem-node:hover {
+  border-color: rgba(0, 180, 255, 0.55) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.5),
+    0 0 25px rgba(0, 180, 255, 0.3) !important;
+  transform: translateY(-3px) !important;
+}
+
+/* 3. TRAINER FEATURE & STAT BADGES */
+.trainers-section .trainer-feature {
+  background: linear-gradient(165deg, rgba(16, 23, 38, 0.85) 0%, rgba(8, 12, 22, 0.95) 100%) !important;
+  border: 1.2px solid rgba(255, 255, 255, 0.24) !important;
+  border-radius: 26px !important;
+  backdrop-filter: blur(28px) !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.45),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.85),
+    0 24px 60px rgba(0, 0, 0, 0.75) !important;
+}
+
+.trainers-section .trainer-stats > div {
+  background: rgba(18, 26, 44, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 14px !important;
+  padding: 12px 18px !important;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.25) !important;
+}
+
+/* 4. INTRO SECTION CAPSULE LABELS */
+.intro-section .intro-stat {
+  background: rgba(14, 20, 34, 0.82) !important;
+  border: 1.2px solid rgba(255, 255, 255, 0.22) !important;
+  border-radius: 18px !important;
+  backdrop-filter: blur(24px) !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.4),
+    0 16px 40px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN (Tablets & Mobiles)
+   ========================================================= */
+@media (max-width: 900px) {
+  .navbar-3d-dock {
+    gap: 2px;
+    padding: 4px 6px;
+  }
+  .navbar-3d-module {
+    padding: 4px 10px 4px 4px;
+    gap: 8px;
+  }
+  .navbar-3d-label {
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar-3d-wrapper {
+    top: 12px;
+    width: calc(100% - 24px);
+  }
+  .navbar-3d-dock {
+    width: 100%;
+    justify-content: space-around;
+    padding: 4px 6px;
+  }
+  .navbar-3d-module {
+    padding: 4px;
+  }
+  .navbar-3d-module .navbar-3d-label {
+    display: none;
+  }
+  .navbar-3d-module.active {
+    padding: 4px 12px 4px 4px;
+  }
+  .navbar-3d-module.active .navbar-3d-label {
+    display: inline-block;
+  }
+}

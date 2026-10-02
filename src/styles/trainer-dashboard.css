@@ -1,0 +1,951 @@
+/* =========================================================
+   FITPULSE TRAINER COMMAND SYSTEM
+   Match: media_1789200318862.png (Dark Futuristic Glassmorphism)
+   ========================================================= */
+
+:root {
+  --tp-bg: #060913;
+  --tp-bg-card: rgba(11, 17, 30, 0.82);
+  --tp-bg-card-hover: rgba(16, 25, 46, 0.92);
+  --tp-bg-subtle: rgba(18, 26, 44, 0.65);
+  --tp-border: rgba(0, 166, 255, 0.28);
+  --tp-border-subtle: rgba(255, 255, 255, 0.08);
+  --tp-border-glow: rgba(0, 166, 255, 0.55);
+  --tp-cyan: #00b4ff;
+  --tp-cyan-glow: rgba(0, 180, 255, 0.45);
+  --tp-blue-btn: #0091ff;
+  --tp-text: #ffffff;
+  --tp-text-muted: #94a3b8;
+  --tp-text-dark: #cbd5e1;
+  --tp-card-shadow: 0 10px 30px rgba(0, 0, 0, 0.55), 0 0 20px rgba(0, 140, 255, 0.1);
+  --tp-radius: 18px;
+}
+
+.trainer-dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: var(--tp-bg);
+  position: relative;
+  color: var(--tp-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+  overflow-x: hidden;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.trainer-dashboard-container::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* ---------------------------------------------------------
+   PERSISTENT SIDEBAR
+   --------------------------------------------------------- */
+.trainer-sidebar {
+  width: 270px;
+  flex-shrink: 0;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  background: rgba(8, 12, 22, 0.94);
+  border-right: 1px solid var(--tp-border-subtle);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  padding: 22px 16px;
+  z-index: 100;
+}
+
+.trainer-brand {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  text-align: left;
+  margin-bottom: 22px;
+}
+
+.trainer-brand-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(0, 180, 255, 0.35), rgba(0, 102, 255, 0.35));
+  border: 1px solid rgba(0, 180, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tp-cyan);
+  box-shadow: 0 0 16px rgba(0, 180, 255, 0.4);
+}
+
+.trainer-brand-name {
+  font-size: 1.12rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+
+.trainer-brand-tagline {
+  font-size: 0.55rem;
+  color: var(--tp-cyan);
+  letter-spacing: 0.12em;
+  font-weight: 800;
+}
+
+.trainer-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.trainer-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--tp-text-muted);
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.trainer-nav-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.trainer-nav-btn.active {
+  color: #ffffff !important;
+  background: linear-gradient(180deg, #0084ff 0%, #0060df 100%) !important;
+  border: 1px solid rgba(0, 200, 255, 0.45) !important;
+  box-shadow: 0 0 18px rgba(0, 132, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+
+.trainer-nav-btn.active .trainer-nav-idx {
+  color: #ffffff !important;
+  opacity: 0.85;
+}
+
+.trainer-nav-icon {
+  font-size: 0.95rem;
+  width: 20px;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.trainer-nav-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trainer-nav-idx {
+  font-size: 0.68rem;
+  font-family: "JetBrains Mono", monospace;
+  opacity: 0.5;
+}
+
+.trainer-sidebar-footer {
+  border-top: 1px solid var(--tp-border-subtle);
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.trainer-user-capsule {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.trainer-avatar-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0084ff, #0050c8);
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 14px rgba(0, 132, 255, 0.4);
+}
+
+.trainer-user-meta .trainer-user-name {
+  font-weight: 800;
+  font-size: 0.86rem;
+  color: #ffffff;
+}
+
+.trainer-user-meta .trainer-user-tier {
+  font-size: 0.68rem;
+  color: var(--tp-cyan);
+  font-weight: 700;
+}
+
+.trainer-portal-switch-btn {
+  padding: 8px 12px;
+  background: rgba(0, 180, 255, 0.1);
+  border: 1px solid rgba(0, 180, 255, 0.3);
+  border-radius: 8px;
+  color: var(--tp-cyan);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.trainer-portal-switch-btn:hover {
+  background: rgba(0, 180, 255, 0.2);
+  color: #ffffff;
+}
+
+.trainer-logout-btn {
+  padding: 7px 12px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.28);
+  border-radius: 8px;
+  color: #f87171;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.trainer-logout-btn:hover {
+  background: rgba(239, 68, 68, 0.18);
+}
+
+/* ---------------------------------------------------------
+   MAIN SCROLL CONTENT
+   --------------------------------------------------------- */
+.trainer-main-scroll {
+  flex: 1;
+  min-width: 0;
+  margin-left: 280px;
+  position: relative;
+  z-index: 2;
+  padding: 24px 44px 80px 44px;
+}
+
+.trainer-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.trainer-search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(18, 24, 38, 0.72);
+  border: 1px solid var(--tp-border-subtle);
+  padding: 9px 16px;
+  border-radius: 12px;
+  width: 380px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: var(--tp-text-muted);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.trainer-search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 0.88rem;
+  width: 100%;
+}
+
+.trainer-search-input::placeholder {
+  color: #64748b;
+}
+
+.trainer-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.trainer-hud-pill {
+  background: rgba(12, 18, 30, 0.88) !important;
+  border: 1px solid rgba(0, 180, 255, 0.25) !important;
+}
+
+/* Common Card & Stagger */
+.trainer-module-section {
+  position: relative;
+  min-height: calc(100vh - 40px);
+  padding: 40px 0 70px 0;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.trainer-module-section.out-of-view {
+  opacity: 0.15;
+  transform: translateY(28px) scale(0.985);
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+.trainer-module-section.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0px);
+  pointer-events: auto;
+}
+
+.trainer-module-section.in-view .trainer-card,
+.trainer-module-section.in-view .dash-stat-tile,
+.trainer-module-section.in-view .trainer-client-card {
+  animation: cardComeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.trainer-card {
+  background: var(--tp-bg-card);
+  border: 1px solid var(--tp-border-subtle);
+  border-radius: var(--tp-radius);
+  padding: 24px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--tp-card-shadow);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.trainer-card:hover {
+  border-color: var(--tp-border);
+  box-shadow: 0 0 28px rgba(0, 166, 255, 0.15);
+}
+
+.trainer-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.trainer-card-header h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* ---------------------------------------------------------
+   01. DASHBOARD SPECIFICS
+   --------------------------------------------------------- */
+.trainer-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.trainer-stat-tile {
+  background: var(--tp-bg-card);
+  border: 1px solid var(--tp-border-subtle);
+  border-radius: 16px;
+  padding: 18px 20px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--tp-card-shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  transition: all 0.25s ease;
+}
+
+.trainer-stat-tile:hover {
+  border-color: var(--tp-border);
+  box-shadow: 0 0 24px rgba(0, 166, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.trainer-stat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trainer-stat-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--tp-text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.trainer-stat-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+}
+
+.trainer-stat-badge.highlight {
+  background: rgba(0, 180, 255, 0.2);
+  color: var(--tp-cyan);
+  border: 1px solid rgba(0, 180, 255, 0.4);
+}
+
+.trainer-stat-value {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.trainer-stat-sub {
+  font-size: 0.76rem;
+  color: var(--tp-cyan);
+  font-weight: 600;
+}
+.trainer-quick-actions-bar {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.trainer-quick-btn {
+  padding: 10px 18px;
+  background: rgba(18, 26, 44, 0.7);
+  border: 1px solid var(--tp-border);
+  border-radius: 10px;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.trainer-quick-btn:hover {
+  background: linear-gradient(180deg, #0099ff 0%, #0070e0 100%);
+  border-color: rgba(0, 220, 255, 0.6);
+  box-shadow: 0 0 18px rgba(0, 153, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Timeline Preview */
+.trainer-timeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.trainer-timeline-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(18, 26, 44, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border-left: 3px solid #0099ff;
+}
+
+.trainer-timeline-time {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.82rem;
+  color: var(--tp-cyan);
+  font-weight: 800;
+  width: 90px;
+}
+
+.trainer-timeline-client {
+  flex: 1;
+  font-weight: 800;
+  color: #ffffff;
+  font-size: 0.92rem;
+}
+
+.trainer-timeline-type {
+  font-size: 0.78rem;
+  color: var(--tp-text-muted);
+}
+
+/* Progress Alert Items */
+.trainer-alert-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(18, 26, 44, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  font-size: 0.84rem;
+}
+
+.trainer-alert-item.highlight {
+  border-color: rgba(0, 166, 255, 0.35);
+  background: rgba(0, 166, 255, 0.08);
+}
+
+/* ---------------------------------------------------------
+   02. MY CLIENTS (THE FLAGSHIP MODULE)
+   --------------------------------------------------------- */
+.trainer-clients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 22px;
+}
+
+.trainer-client-card {
+  background: rgba(11, 17, 30, 0.82);
+  border: 1px solid rgba(0, 166, 255, 0.25);
+  border-radius: 16px;
+  padding: 20px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 0 24px rgba(0, 140, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  transition: all 0.25s ease;
+}
+
+.trainer-client-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0, 200, 255, 0.55);
+  box-shadow: 0 0 32px rgba(0, 166, 255, 0.25);
+}
+
+.trainer-client-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.trainer-client-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--tp-cyan);
+}
+
+.trainer-client-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+}
+
+.trainer-client-goal {
+  font-size: 0.78rem;
+  color: var(--tp-cyan);
+  font-weight: 700;
+}
+
+.trainer-client-stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 12px;
+  background: rgba(18, 26, 44, 0.65);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+}
+
+.trainer-client-stat-val {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.trainer-client-stat-lbl {
+  font-size: 0.68rem;
+  color: var(--tp-text-muted);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.trainer-client-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.trainer-client-action-btn {
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.trainer-client-action-btn:hover {
+  background: rgba(0, 153, 255, 0.2);
+  border-color: var(--tp-cyan);
+  color: #ffffff;
+}
+
+.trainer-client-action-btn.primary {
+  background: linear-gradient(180deg, #0099ff 0%, #0070e0 100%);
+  border: 1px solid rgba(0, 220, 255, 0.5);
+  color: #ffffff;
+  box-shadow: 0 0 14px rgba(0, 153, 255, 0.5);
+}
+
+/* ---------------------------------------------------------
+   03. WORKOUT PLANS BUILDER
+   --------------------------------------------------------- */
+.trainer-builder-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 24px;
+}
+
+.trainer-builder-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.trainer-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.trainer-form-group label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--tp-text-muted);
+}
+
+.trainer-form-select,
+.trainer-form-input {
+  background: rgba(18, 26, 44, 0.75);
+  border: 1px solid var(--tp-border-subtle);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: #ffffff;
+  font-size: 0.88rem;
+  outline: none;
+}
+
+.trainer-form-select:focus,
+.trainer-form-input:focus {
+  border-color: var(--tp-cyan);
+}
+
+.trainer-exercise-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.trainer-exercise-table th {
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--tp-text-muted);
+  text-transform: uppercase;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--tp-border-subtle);
+}
+
+.trainer-exercise-table td {
+  padding: 10px;
+  font-size: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.trainer-btn-assign {
+  padding: 12px;
+  background: linear-gradient(180deg, #0099ff 0%, #0070e0 100%);
+  border: 1px solid rgba(0, 220, 255, 0.5);
+  border-radius: 10px;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.92rem;
+  cursor: pointer;
+  box-shadow: 0 0 22px rgba(0, 153, 255, 0.7);
+  transition: all 0.2s ease;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.trainer-btn-assign:hover {
+  box-shadow: 0 0 30px rgba(0, 153, 255, 0.9);
+  transform: translateY(-2px);
+}
+
+/* ---------------------------------------------------------
+   04. SCHEDULE TIMELINE
+   --------------------------------------------------------- */
+.trainer-schedule-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.trainer-schedule-hour-row {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  min-height: 64px;
+}
+
+.trainer-schedule-hour-label {
+  width: 80px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+  color: var(--tp-text-muted);
+  font-weight: 700;
+  padding-top: 10px;
+}
+
+.trainer-schedule-slot-card {
+  flex: 1;
+  background: rgba(18, 26, 44, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trainer-schedule-slot-card.pt-session {
+  border-left: 4px solid #0099ff;
+  background: rgba(0, 140, 255, 0.1);
+}
+
+.trainer-schedule-slot-card.assessment {
+  border-left: 4px solid #10b981;
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.trainer-schedule-slot-card.available {
+  border-style: dashed;
+  border-color: rgba(255, 255, 255, 0.15);
+  background: transparent;
+  color: var(--tp-text-muted);
+  cursor: pointer;
+}
+
+.trainer-schedule-slot-card.available:hover {
+  border-color: var(--tp-cyan);
+  color: var(--tp-cyan);
+}
+
+/* ---------------------------------------------------------
+   05. CLIENT PROGRESS COMPARISON
+   --------------------------------------------------------- */
+.trainer-progress-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.trainer-metric-box {
+  background: rgba(18, 26, 44, 0.65);
+  border: 1px solid var(--tp-border-subtle);
+  border-radius: 14px;
+  padding: 14px 16px;
+  text-align: center;
+}
+
+.trainer-metric-val {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.trainer-metric-lbl {
+  font-size: 0.72rem;
+  color: var(--tp-text-muted);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ---------------------------------------------------------
+   06. ATTENDANCE (TRAINER + CLIENTS)
+   --------------------------------------------------------- */
+.trainer-attendance-tab-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.trainer-att-tab-btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  background: rgba(18, 26, 44, 0.7);
+  border: 1px solid var(--tp-border-subtle);
+  color: var(--tp-text-muted);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.trainer-att-tab-btn.active {
+  background: linear-gradient(180deg, #0099ff 0%, #0070e0 100%);
+  border-color: rgba(0, 220, 255, 0.5);
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(0, 153, 255, 0.5);
+}
+
+.trainer-client-att-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(18, 26, 44, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.trainer-btn-checkin {
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.trainer-btn-checkin.present {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.trainer-btn-checkin.absent {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #f87171;
+}
+
+/* ---------------------------------------------------------
+   08. MESSAGES (TRAINER ↔ CLIENTS)
+   --------------------------------------------------------- */
+.trainer-chat-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 20px;
+  height: 520px;
+}
+
+.trainer-convo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+}
+
+.trainer-convo-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.trainer-convo-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.trainer-convo-item.active {
+  background: rgba(0, 153, 255, 0.12);
+  border-color: rgba(0, 180, 255, 0.35);
+}
+
+/* ---------------------------------------------------------
+   10. EXERCISE LIBRARY
+   --------------------------------------------------------- */
+.trainer-library-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.trainer-exercise-card {
+  background: rgba(18, 26, 44, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.trainer-exercise-card:hover {
+  border-color: var(--tp-cyan);
+  box-shadow: 0 0 20px rgba(0, 153, 255, 0.2);
+}
+
+.trainer-diff-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.trainer-diff-badge.beginner { background: rgba(16, 185, 129, 0.18); color: #34d399; }
+.trainer-diff-badge.intermediate { background: rgba(245, 158, 11, 0.18); color: #fbbf24; }
+.trainer-diff-badge.advanced { background: rgba(239, 68, 68, 0.18); color: #f87171; }
+
+@media (max-width: 1024px) {
+  .trainer-sidebar {
+    position: fixed;
+    left: -270px;
+  }
+  .trainer-main-scroll {
+    padding: 20px;
+  }
+  .trainer-clients-grid,
+  .trainer-builder-grid,
+  .trainer-chat-layout {
+    grid-template-columns: 1fr;
+  }
+  .trainer-progress-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

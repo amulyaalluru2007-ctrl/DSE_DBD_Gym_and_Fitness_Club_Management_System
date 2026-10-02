@@ -1,0 +1,2948 @@
+/* =========================================================
+   FITPULSE 3D GLASSMORPHIC AUTH GUI (LOGIN & SIGNUP)
+   Exact match to the 3D Navbar GUI:
+   - 3D Frosted Obsidian Glass Cards
+   - Specular White Bevel Rims & Inner Specular Lighting
+   - Recessed 3D Circular Discs with Chromatic Optical Rainbow Halos
+   - Embossed Silver Metallic Chrome Icons
+   - Recessed 3D Input Wells
+   - 3D Stadium Capsule CTA Buttons & Switches
+   ========================================================= */
+
+/* Auth Page Root Background & Ambient Glows */
+.auth-page {
+  background-color: #050811 !important;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
+}
+
+.auth-background .auth-grid {
+  opacity: 0.12;
+  background-image:
+    linear-gradient(rgba(0, 180, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 180, 255, 0.15) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.auth-glow-one {
+  background: radial-gradient(circle, rgba(0, 140, 255, 0.22) 0%, transparent 70%) !important;
+}
+
+.auth-glow-two {
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, transparent 70%) !important;
+}
+
+/* =========================================================
+   TOP NAV / HEADER WITH 3D EMBLEMS
+   ========================================================= */
+.auth-header {
+  padding: 24px 44px;
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.auth-brand-symbol {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 35% 28%, #283040 0%, #131722 55%, #080a10 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.5),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.95),
+    0 4px 14px rgba(0, 0, 0, 0.8),
+    0 0 16px rgba(0, 180, 255, 0.3) !important;
+  color: #ffffff !important;
+  font-weight: 900 !important;
+  font-size: 1.1rem !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+.auth-brand:hover .auth-brand-symbol {
+  transform: scale(1.06);
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.7),
+    0 0 24px rgba(0, 180, 255, 0.5) !important;
+}
+
+/* 3D Glass Status Capsule */
+.auth-system-status {
+  padding: 6px 14px !important;
+  border-radius: 9999px !important;
+  background: rgba(12, 17, 28, 0.65) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow:
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.35),
+    0 6px 18px rgba(0, 0, 0, 0.4) !important;
+  color: #cbd5e1 !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+}
+
+.auth-system-status i {
+  background: #00b4ff !important;
+  box-shadow: 0 0 10px #00b4ff, 0 0 20px #00b4ff !important;
+}
+
+.auth-page-number {
+  padding: 6px 14px !important;
+  border-radius: 9999px !important;
+  background: rgba(12, 17, 28, 0.65) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: var(--nav-cyan, #00b4ff) !important;
+  font-family: "JetBrains Mono", monospace !important;
+  font-weight: 700 !important;
+  font-size: 0.72rem !important;
+}
+
+/* =========================================================
+   LEFT HERO READOUTS & LABELS
+   ========================================================= */
+.auth-visual-label {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px !important;
+  border-radius: 9999px !important;
+  background: rgba(14, 21, 35, 0.75) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(0, 180, 255, 0.35) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.3),
+    0 0 16px rgba(0, 180, 255, 0.2) !important;
+  color: #00b4ff !important;
+  font-size: 0.75rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.15em !important;
+  width: fit-content;
+  margin-bottom: 20px;
+}
+
+.auth-visual-label span {
+  width: 6px !important;
+  height: 6px !important;
+  background: #00b4ff !important;
+  box-shadow: 0 0 10px #00b4ff !important;
+  border-radius: 50% !important;
+}
+
+/* System Readouts as 3D Glass Tiles */
+.auth-system-readout > div {
+  background: linear-gradient(165deg, rgba(16, 23, 38, 0.75) 0%, rgba(8, 12, 22, 0.85) 100%) !important;
+  border: 1.2px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 16px !important;
+  padding: 16px 20px !important;
+  backdrop-filter: blur(24px) !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.35),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.8),
+    0 16px 36px rgba(0, 0, 0, 0.6) !important;
+  transition: all 0.25s ease;
+}
+
+.auth-system-readout > div:hover {
+  border-color: rgba(255, 255, 255, 0.38) !important;
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.5),
+    0 20px 45px rgba(0, 0, 0, 0.7),
+    0 0 20px rgba(0, 180, 255, 0.2) !important;
+}
+
+/* =========================================================
+   THE MASTER 3D GLASS AUTH CARD (LOGIN & SIGNUP)
+   ========================================================= */
+.auth-card {
+  background: linear-gradient(165deg, rgba(16, 23, 38, 0.86) 0%, rgba(8, 12, 22, 0.94) 100%) !important;
+  border: 1.2px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 28px !important;
+  backdrop-filter: blur(36px) saturate(180%) contrast(108%) !important;
+  -webkit-backdrop-filter: blur(36px) saturate(180%) contrast(108%) !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.55),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.9),
+    0 25px 65px rgba(0, 0, 0, 0.75),
+    0 0 35px rgba(0, 180, 255, 0.16) !important;
+  padding: 36px !important;
+  position: relative !important;
+  overflow: hidden;
+}
+
+.auth-card::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 10% !important;
+  width: 80% !important;
+  height: 1.5px !important;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent) !important;
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Auth Card Top Readout */
+.auth-card-top {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding-bottom: 18px !important;
+}
+
+.auth-card-signal {
+  padding: 4px 10px !important;
+  border-radius: 9999px !important;
+  background: rgba(16, 185, 129, 0.15) !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+  color: #34d399 !important;
+  font-weight: 800 !important;
+  font-size: 0.68rem !important;
+}
+
+.auth-card-signal i {
+  background: #10b981 !important;
+  box-shadow: 0 0 8px #10b981 !important;
+}
+
+/* =========================================================
+   3D CAPSULE PORTAL SELECTOR TABS
+   Matching media_1789296863879.png
+   ========================================================= */
+.auth-3d-portal-dock {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 18px;
+  background: rgba(10, 15, 26, 0.72);
+  padding: 5px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.25),
+    inset 0 -1px 3px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.auth-3d-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px 6px 6px;
+  border-radius: 9999px;
+  background: transparent;
+  border: 1.2px solid transparent;
+  color: #94a3b8;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  justify-content: flex-start;
+}
+
+.auth-3d-tab:hover {
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Active 3D Tab State (Exact match to reference photo) */
+.auth-3d-tab.active {
+  background: linear-gradient(180deg, rgba(28, 38, 58, 0.95) 0%, rgba(11, 16, 26, 0.98) 100%) !important;
+  border: 1.2px solid rgba(255, 255, 255, 0.45) !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.6),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.92),
+    0 8px 24px rgba(0, 0, 0, 0.65),
+    0 0 20px rgba(0, 180, 255, 0.25) !important;
+  color: #ffffff !important;
+}
+
+/* 3D Circular Disc Inside Tab */
+.auth-3d-disc-wrapper {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Chromatic Aberration Iridescent Optical Ring */
+.auth-3d-chromatic-ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 215deg at 50% 50%,
+    #a855f7 0deg,
+    #3b82f6 42deg,
+    #06b6d4 85deg,
+    #ffffff 125deg,
+    #fef08a 155deg,
+    #f59e0b 195deg,
+    #ec4899 265deg,
+    #a855f7 360deg
+  );
+  opacity: 0.18;
+  filter: blur(0.6px);
+  transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+  z-index: 1;
+}
+
+.auth-3d-tab.active .auth-3d-chromatic-ring {
+  opacity: 1 !important;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 10px rgba(59, 130, 246, 0.55)) !important;
+  transform: scale(1.04);
+}
+
+.auth-3d-disc {
+  position: relative;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 28%, #283040 0%, #131722 55%, #080a10 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.4),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.95),
+    0 3px 8px rgba(0, 0, 0, 0.8);
+  font-size: 0.9rem;
+}
+
+.auth-3d-tab.active .auth-3d-disc {
+  background: radial-gradient(circle at 35% 28%, #344058 0%, #181f2f 55%, #0a0e16 100%);
+  box-shadow:
+    inset 0 1.8px 2px rgba(255, 255, 255, 0.65),
+    inset 0 -2px 5px rgba(0, 0, 0, 0.98),
+    0 4px 10px rgba(0, 0, 0, 0.85);
+}
+
+/* =========================================================
+   3D 1-CLICK DEMO LOGIN BUTTONS
+   ========================================================= */
+.auth-3d-quick-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 16px 9px 8px;
+  border-radius: 9999px;
+  background: rgba(14, 21, 35, 0.72);
+  border: 1.2px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.35),
+    0 6px 18px rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.auth-3d-quick-btn:hover {
+  background: linear-gradient(180deg, rgba(20, 32, 54, 0.85) 0%, rgba(10, 16, 28, 0.92) 100%);
+  border-color: rgba(0, 180, 255, 0.6);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.5),
+    0 10px 28px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(0, 180, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.auth-3d-quick-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth-3d-quick-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.auth-3d-quick-route {
+  font-size: 0.72rem;
+  color: #00b4ff;
+  font-weight: 700;
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* =========================================================
+   RECESSED 3D INPUT WELLS
+   ========================================================= */
+.auth-input-wrapper input {
+  width: 100%;
+  height: 52px !important;
+  padding: 0 48px 0 18px !important;
+  border-radius: 14px !important;
+  background: rgba(8, 12, 20, 0.75) !important;
+  border: 1.2px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow:
+    inset 0 2.5px 5px rgba(0, 0, 0, 0.85),
+    inset 0 1px 1px rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  font-size: 0.92rem !important;
+  outline: none !important;
+  transition: all 0.25s ease !important;
+}
+
+.auth-input-wrapper input:focus {
+  border-color: rgba(0, 180, 255, 0.65) !important;
+  background: rgba(10, 16, 28, 0.85) !important;
+  box-shadow:
+    inset 0 2.5px 5px rgba(0, 0, 0, 0.85),
+    0 0 20px rgba(0, 180, 255, 0.35) !important;
+}
+
+/* Password Toggle & Status Inset */
+.password-toggle {
+  color: #00b4ff !important;
+  font-weight: 800 !important;
+  font-size: 0.72rem !important;
+}
+
+.input-status {
+  color: rgba(0, 180, 255, 0.6) !important;
+  font-weight: 800 !important;
+}
+
+/* =========================================================
+   3D STADIUM CAPSULE SUBMIT & GOOGLE BUTTONS
+   ========================================================= */
+.auth-submit {
+  width: 100% !important;
+  height: 54px !important;
+  border-radius: 9999px !important;
+  background: linear-gradient(180deg, #0084ff 0%, #0056d6 100%) !important;
+  border: 1.2px solid rgba(255, 255, 255, 0.5) !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.7),
+    0 12px 35px rgba(0, 132, 255, 0.55) !important;
+  color: #ffffff !important;
+  font-size: 0.88rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.1em !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 12px 0 24px !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.auth-submit:hover {
+  transform: translateY(-2px) !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.85),
+    0 16px 42px rgba(0, 132, 255, 0.75),
+    0 0 28px rgba(0, 180, 255, 0.4) !important;
+}
+
+.auth-submit:active {
+  transform: translateY(1px) scale(0.98) !important;
+}
+
+.auth-submit-arrow-disc {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+/* Google Button as 3D Glass Capsule */
+.google-button {
+  width: 100% !important;
+  height: 50px !important;
+  border-radius: 9999px !important;
+  background: rgba(14, 21, 35, 0.7) !important;
+  border: 1.2px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.35),
+    0 8px 24px rgba(0, 0, 0, 0.45) !important;
+  color: #e2e8f0 !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  transition: all 0.25s ease !important;
+}
+
+.google-button:hover {
+  background: rgba(20, 28, 46, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  color: #ffffff !important;
+  transform: translateY(-1.5px) !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.45),
+    0 12px 30px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* =========================================================
+   SIGNUP PAGE GOAL CARDS & STEPPING
+   ========================================================= */
+.goal-card {
+  background: linear-gradient(165deg, rgba(16, 23, 38, 0.78) 0%, rgba(8, 12, 22, 0.88) 100%) !important;
+  border: 1.2px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 20px !important;
+  backdrop-filter: blur(24px) !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.35),
+    0 14px 35px rgba(0, 0, 0, 0.55) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  cursor: pointer !important;
+  padding: 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  text-align: left !important;
+  position: relative !important;
+}
+
+.goal-card:hover {
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  transform: translateY(-3px) !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.55),
+    0 18px 45px rgba(0, 0, 0, 0.7),
+    0 0 20px rgba(0, 180, 255, 0.25) !important;
+}
+
+.goal-card.active,
+.goal-card.selected,
+.goal-card.goal-selected {
+  border: 1.5px solid rgba(0, 180, 255, 0.75) !important;
+  background: linear-gradient(165deg, rgba(22, 36, 62, 0.92) 0%, rgba(10, 18, 32, 0.96) 100%) !important;
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.65),
+    0 18px 45px rgba(0, 0, 0, 0.7),
+    0 0 35px rgba(0, 180, 255, 0.45) !important;
+}
+
+.goal-card span {
+  font-size: 0.95rem !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  letter-spacing: 0.05em !important;
+  display: block !important;
+  margin-bottom: 6px !important;
+}
+
+.goal-card small {
+  font-size: 0.78rem !important;
+  color: #94a3b8 !important;
+  line-height: 1.4 !important;
+  display: block !important;
+}
+
+.goal-card strong {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0.9rem !important;
+  color: #94a3b8 !important;
+  margin-top: 14px !important;
+  align-self: flex-end !important;
+  transition: all 0.25s ease !important;
+}
+
+.goal-card:hover strong,
+.goal-card.goal-selected strong {
+  background: linear-gradient(180deg, #0084ff 0%, #0056d6 100%) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 0 14px rgba(0, 132, 255, 0.6) !important;
+  transform: translateX(3px) !important;
+}
+
+/* Signup Progress Track & Steps */
+.signup-progress {
+  max-width: 620px;
+  margin-top: 48px !important;
+}
+
+.signup-progress-line {
+  width: 100%;
+  height: 4px !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+  overflow: hidden;
+}
+
+.signup-progress-fill {
+  height: 100% !important;
+  border-radius: 9999px !important;
+  background: linear-gradient(90deg, #0084ff, #00d2ff) !important;
+  box-shadow: 0 0 16px rgba(0, 180, 255, 0.8) !important;
+}
+
+.signup-progress-steps {
+  margin-top: 16px !important;
+}
+
+.signup-progress-steps > div {
+  opacity: 0.45 !important;
+  transition: all 0.3s ease !important;
+}
+
+.signup-progress-steps > div.active {
+  opacity: 1 !important;
+}
+
+.signup-progress-steps span {
+  font-family: "JetBrains Mono", monospace !important;
+  font-size: 0.78rem !important;
+  font-weight: 800 !important;
+  color: #cbd5e1 !important;
+}
+
+.signup-progress-steps > div.active span {
+  color: #00b4ff !important;
+  text-shadow: 0 0 10px rgba(0, 180, 255, 0.5) !important;
+}
+
+.signup-progress-steps small {
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  color: #64748b !important;
+}
+
+.signup-progress-steps > div.active small {
+  color: #ffffff !important;
+}
+
+.step-kicker {
+  font-size: 0.72rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.15em !important;
+  color: #00b4ff !important;
+  text-shadow: 0 0 10px rgba(0, 180, 255, 0.35) !important;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.signup-step h2 {
+  font-size: 1.8rem !important;
+  font-weight: 900 !important;
+  color: #ffffff !important;
+  margin-bottom: 8px !important;
+  letter-spacing: -0.02em !important;
+}
+
+.signup-step p {
+  color: #94a3b8 !important;
+  font-size: 0.88rem !important;
+  margin-bottom: 24px !important;
+}
+
+.back-button,
+.signup-back-btn {
+  padding: 12px 24px !important;
+  border-radius: 9999px !important;
+  background: rgba(14, 21, 35, 0.75) !important;
+  border: 1.2px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.3) !important;
+  color: #cbd5e1 !important;
+  font-weight: 800 !important;
+  font-size: 0.82rem !important;
+  letter-spacing: 0.08em !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+}
+
+.back-button:hover:not(:disabled),
+.signup-back-btn:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.4), 0 6px 18px rgba(0, 0, 0, 0.4) !important;
+}
+
+.back-button:disabled,
+.signup-back-btn:disabled {
+  opacity: 0.3 !important;
+  cursor: not-allowed !important;
+}
+
+/* Headings & Switch in Auth Card */
+.auth-card-heading > span {
+  font-size: 0.72rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.15em !important;
+  color: #00b4ff !important;
+  text-shadow: 0 0 12px rgba(0, 180, 255, 0.4) !important;
+}
+
+.auth-card-heading h2 {
+  font-size: 1.85rem !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.02em !important;
+  color: #ffffff !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8) !important;
+  margin: 6px 0 8px !important;
+}
+
+.auth-card-heading p {
+  color: #94a3b8 !important;
+  font-size: 0.85rem !important;
+  line-height: 1.4 !important;
+  margin-bottom: 20px !important;
+}
+
+.auth-field label {
+  font-size: 0.72rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  color: #94a3b8 !important;
+  margin-bottom: 8px !important;
+  display: block !important;
+}
+
+.auth-options {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin: 16px 0 22px !important;
+}
+
+.remember-option {
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  color: #cbd5e1 !important;
+  letter-spacing: 0.08em !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  cursor: pointer !important;
+}
+
+.forgot-button {
+  font-size: 0.75rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.08em !important;
+  color: #00b4ff !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.forgot-button:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 10px #00b4ff !important;
+}
+
+.auth-divider {
+  margin: 20px 0 !important;
+  color: #64748b !important;
+  font-size: 0.72rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.15em !important;
+}
+
+.auth-divider span {
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+
+.auth-switch {
+  margin-top: 22px !important;
+  padding-top: 18px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+}
+
+.auth-switch > span {
+  color: #94a3b8 !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+}
+
+.auth-switch button {
+  font-size: 0.82rem !important;
+  font-weight: 800 !important;
+  color: #00b4ff !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.auth-switch button:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 12px #00b4ff !important;
+}
+
+.auth-system-readout span {
+  font-size: 0.68rem !important;
+  font-weight: 800 !important;
+  color: #64748b !important;
+  letter-spacing: 0.12em !important;
+  display: block !important;
+  margin-bottom: 4px !important;
+}
+
+.auth-system-readout strong {
+  font-size: 0.95rem !important;
+  font-weight: 800 !important;
+  color: #00b4ff !important;
+  letter-spacing: 0.08em !important;
+  text-shadow: 0 0 10px rgba(0, 180, 255, 0.4) !important;
+}
+
+/* =========================================================
+   TREADMILL CONSOLE COCKPIT AUTH LAYOUT
+   Direct match to user reference: media_1789301281640.jpg
+   ========================================================= */
+
+.treadmill-auth-viewport {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #060911;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
+  color: #ffffff;
+}
+
+.treadmill-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 46%, rgba(6, 9, 17, 0) 0%, rgba(3, 5, 10, 0.45) 75%, rgba(2, 3, 7, 0.8) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* THE COCKPIT SCENE STAGE (Matched 1:1 to background image pixels) */
+.treadmill-scene-stage {
+  position: absolute;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.treadmill-stage-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* LEFT FLOATING HUD */
+.treadmill-stage-hud-left {
+  position: absolute;
+  left: 3.5%;
+  top: 13.5%;
+  width: 23.5%;
+  height: 55.4%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.treadmill-tag-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.treadmill-cyan-bar {
+  width: 3px;
+  height: 48px;
+  background: #00d2ff;
+  border-radius: 2px;
+  box-shadow: 0 0 12px #00d2ff;
+  flex-shrink: 0;
+}
+
+.treadmill-tag-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #38bdf8;
+  line-height: 1.35;
+}
+
+.treadmill-left-headline {
+  margin: 16px 0 12px;
+}
+
+.treadmill-left-headline h1 {
+  font-size: 2.7rem;
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin: 0;
+  color: #ffffff;
+}
+
+.treadmill-left-headline .glow-stronger {
+  display: block;
+  font-size: 3.1rem;
+  background: linear-gradient(135deg, #38bdf8 0%, #0099ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 35px rgba(56, 189, 248, 0.45);
+}
+
+.treadmill-left-subtext {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  margin-bottom: 22px;
+}
+
+.treadmill-badge-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.treadmill-badge-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.treadmill-3d-badge-disc {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 28%, #283040 0%, #131722 55%, #080a10 100%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.5),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.95),
+    0 4px 14px rgba(0, 0, 0, 0.8),
+    0 0 16px rgba(0, 180, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.treadmill-badge-content span {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+}
+
+.treadmill-badge-content small {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #94a3b8;
+}
+
+/* RIGHT FLOATING HUD */
+.treadmill-stage-hud-right {
+  position: absolute;
+  right: 3.5%;
+  top: 13.5%;
+  width: 23.5%;
+  height: 55.4%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  text-align: right;
+  box-sizing: border-box;
+}
+
+.treadmill-right-top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.treadmill-right-top span {
+  font-size: 0.88rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  color: #cbd5e1;
+}
+
+.treadmill-right-line {
+  width: 50px;
+  height: 1.5px;
+  background: rgba(255, 255, 255, 0.25);
+  margin-top: 10px;
+}
+
+.treadmill-right-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.treadmill-right-bottom span {
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  color: #94a3b8;
+  opacity: 0.85;
+}
+
+/* CENTER TOUCHSCREEN CONSOLE - LOCKED 100% TO PHYSICAL TREADMILL SCREEN */
+.treadmill-touchscreen-console {
+  position: absolute;
+  left: 30.1%;
+  top: 13.5%;
+  width: 39.8%;
+  height: 55.4%;
+  z-index: 10;
+  border-radius: 34px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 36px 22px;
+  background: radial-gradient(ellipse at 50% 30%, rgba(12, 22, 38, 0.4) 0%, rgba(5, 9, 16, 0.6) 80%, transparent 100%);
+  border: none;
+  box-shadow: inset 0 0 40px rgba(0, 210, 255, 0.04);
+  overflow: hidden;
+  animation: screenPowerOn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Screen reflection glass sheen */
+.treadmill-touchscreen-console::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(130deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.01) 30%, transparent 55%);
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+/* Screen scanline sweep */
+.treadmill-touchscreen-console::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(0, 210, 255, 0.04), transparent);
+  animation: consoleScanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.treadmill-touchscreen-console > * {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes consoleScanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(600%); }
+}
+
+@keyframes screenPowerOn {
+  0% {
+    opacity: 0;
+    transform: scale(0.97);
+    filter: brightness(1.6) blur(3px);
+  }
+  50% {
+    opacity: 0.92;
+    filter: brightness(1.2) blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1) blur(0);
+  }
+}
+
+.treadmill-tablet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.treadmill-tablet-brand {
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  color: #cbd5e1;
+}
+
+.treadmill-tablet-tagline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.treadmill-tablet-tagline span {
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #00d2ff;
+}
+
+.treadmill-tablet-tagline::after {
+  content: "";
+  width: 100%;
+  height: 1px;
+  background: #00d2ff;
+  margin-top: 3px;
+  box-shadow: 0 0 6px #00d2ff;
+}
+
+.treadmill-welcome-title {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.treadmill-welcome-title h2 {
+  font-size: 1.85rem;
+  font-weight: 900;
+  margin: 0 0 4px;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.treadmill-welcome-title h2 span {
+  color: #00d2ff;
+  text-shadow: 0 0 16px rgba(0, 210, 255, 0.55);
+}
+
+.treadmill-welcome-title p {
+  margin: 0;
+  font-size: 0.84rem;
+  color: #94a3b8;
+}
+
+.treadmill-input-box {
+  position: relative;
+  margin-bottom: 14px;
+}
+
+.treadmill-input-box .input-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+  pointer-events: none;
+}
+
+.treadmill-input-box input {
+  width: 100%;
+  height: 48px !important;
+  padding: 0 46px 0 46px !important;
+  border-radius: 12px !important;
+  background: rgba(6, 10, 18, 0.82) !important;
+  border: 1.2px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.85),
+    inset 0 1px 1px rgba(255, 255, 255, 0.06) !important;
+  color: #ffffff !important;
+  font-size: 0.88rem !important;
+  outline: none !important;
+  transition: all 0.25s ease !important;
+  box-sizing: border-box !important;
+}
+
+.treadmill-input-box input:focus {
+  border-color: rgba(0, 210, 255, 0.7) !important;
+  background: rgba(8, 14, 24, 0.9) !important;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.85),
+    0 0 20px rgba(0, 210, 255, 0.35) !important;
+}
+
+.treadmill-input-box input:focus ~ .input-icon {
+  color: #00d2ff;
+}
+
+.treadmill-input-box .input-action {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  transition: color 0.2s ease;
+}
+
+.treadmill-input-box .input-action:hover {
+  color: #00d2ff;
+}
+
+.treadmill-options-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0 18px;
+  font-size: 0.8rem;
+}
+
+.treadmill-remember-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #cbd5e1;
+  cursor: pointer;
+  user-select: none;
+}
+
+.treadmill-remember-label input[type="checkbox"] {
+  accent-color: #00d2ff;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.treadmill-forgot-link {
+  color: #00d2ff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.treadmill-forgot-link:hover {
+  color: #ffffff;
+  text-shadow: 0 0 10px #00d2ff;
+}
+
+.treadmill-signin-btn {
+  width: 100%;
+  height: 52px;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, #0084ff 0%, #0056d6 100%);
+  border: 1.2px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.75),
+    0 12px 35px rgba(0, 132, 255, 0.55);
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-bottom: 18px;
+}
+
+.treadmill-signin-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.9),
+    0 16px 42px rgba(0, 132, 255, 0.75),
+    0 0 28px rgba(0, 180, 255, 0.4);
+}
+
+.treadmill-signin-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.treadmill-signin-btn .arrow-disc {
+  position: absolute;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.treadmill-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+  color: #64748b;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.treadmill-divider::before,
+.treadmill-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.treadmill-social-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.treadmill-social-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 28%, #222938 0%, #111520 55%, #080a10 100%);
+  border: 1.2px solid rgba(255, 255, 255, 0.25);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.4),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.95),
+    0 4px 14px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #ffffff;
+  position: relative;
+}
+
+.treadmill-social-btn:hover {
+  transform: translateY(-2px) scale(1.08);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.7),
+    0 8px 20px rgba(0, 0, 0, 0.75),
+    0 0 18px rgba(0, 180, 255, 0.35);
+}
+
+.treadmill-switch-footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.treadmill-switch-footer button {
+  background: transparent;
+  border: none;
+  color: #00d2ff;
+  font-weight: 800;
+  cursor: pointer;
+  margin-left: 6px;
+  transition: all 0.2s ease;
+}
+
+.treadmill-switch-footer button:hover {
+  color: #ffffff;
+  text-shadow: 0 0 10px #00d2ff;
+  text-decoration: underline;
+}
+
+@media (max-width: 1180px) {
+  .treadmill-cockpit-shell {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 24px;
+  }
+  .treadmill-hud-left,
+  .treadmill-hud-right {
+    display: none;
+  }
+}
+
+/* =========================================================
+   CINEMATIC LUXURY GYM 3D FLOATING GLASS AUTH EXPERIENCE
+   - Multi-plane Parallax Engine (Perspective 1200px)
+   - "Gym Comes Alive" Lighting & Camera Sequence
+   - Ceiling Halo Fixture Breathing Glow (70% <-> 100%)
+   - Equipment Status LEDs & Subtle Movement
+   - Suspended Frosted Glass Card with 2-4deg Mouse Parallax
+   - Smooth Dashboard Transition on Login
+   ========================================================= */
+
+.cinematic-gym-viewport {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #060910;
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
+  color: #ffffff;
+  user-select: none;
+}
+
+/* Vignette border & tone curve */
+.cinematic-gym-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 45%, transparent 50%, rgba(0, 0, 0, 0.65) 100%);
+  mix-blend-mode: multiply;
+}
+
+/* Camera rig holding all planes */
+.cinematic-gym-camera {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform, filter;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+}
+
+/* Camera Entrance Keyframes during Intro (0s - 2.8s) */
+.cinematic-gym-camera.phase-dark {
+  filter: brightness(0.22) contrast(1.2) saturate(0.8);
+  transform: scale(1.18) translateZ(80px) translateY(-12px);
+}
+
+.cinematic-gym-camera.phase-lights {
+  filter: brightness(0.75) contrast(1.08) saturate(0.95);
+  transform: scale(1.06) translateZ(30px) translateY(-5px);
+  transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.8s ease;
+}
+
+.cinematic-gym-camera.phase-leds {
+  filter: brightness(1) contrast(1) saturate(1);
+  transform: scale(1.01) translateZ(5px) translateY(-1px);
+  transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s ease;
+}
+
+.cinematic-gym-camera.phase-panel,
+.cinematic-gym-camera.phase-ready {
+  filter: brightness(1) contrast(1) saturate(1);
+  transform: scale(1) translateZ(0) translateY(0);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+}
+
+/* Stage locked to 16:9 aspect ratio */
+.cinematic-gym-stage {
+  position: absolute;
+  transform-style: preserve-3d;
+  overflow: visible;
+}
+
+/* Layer 1: Gym Environment Backdrop */
+.gym-layer-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate3d(calc(var(--parallax-x, 0) * -8px), calc(var(--parallax-y, 0) * -5px), -40px);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* Layer 2: Ceiling Halo Ring Breathing Light Fixture */
+.gym-layer-ceiling-ring {
+  position: absolute;
+  top: -8%;
+  left: 35%;
+  width: 30%;
+  height: 25%;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 215, 150, 0.35) 0%, rgba(255, 175, 75, 0.15) 45%, transparent 72%);
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 35px rgba(255, 190, 100, 0.65));
+  animation: ceilingRingPulse 5.5s ease-in-out infinite alternate;
+  transform: translate3d(calc(var(--parallax-x, 0) * -6px), calc(var(--parallax-y, 0) * -4px), -20px);
+  transition: opacity 1.5s ease, filter 1.5s ease;
+}
+
+.phase-dark .gym-layer-ceiling-ring {
+  opacity: 0.15;
+  filter: drop-shadow(0 0 10px rgba(255, 160, 60, 0.2));
+}
+
+.phase-lights .gym-layer-ceiling-ring,
+.phase-leds .gym-layer-ceiling-ring,
+.phase-panel .gym-layer-ceiling-ring,
+.phase-ready .gym-layer-ceiling-ring {
+  opacity: 1;
+}
+
+@keyframes ceilingRingPulse {
+  0% {
+    opacity: 0.70;
+    transform: translate3d(calc(var(--parallax-x, 0) * -6px), calc(var(--parallax-y, 0) * -4px), -20px) scale(0.98);
+    filter: drop-shadow(0 0 20px rgba(255, 185, 100, 0.45));
+  }
+  50% {
+    opacity: 1.0;
+    transform: translate3d(calc(var(--parallax-x, 0) * -6px), calc(var(--parallax-y, 0) * -4px), -20px) scale(1.02);
+    filter: drop-shadow(0 0 45px rgba(255, 215, 140, 0.85)) drop-shadow(0 0 75px rgba(255, 165, 60, 0.45));
+  }
+  100% {
+    opacity: 0.70;
+    transform: translate3d(calc(var(--parallax-x, 0) * -6px), calc(var(--parallax-y, 0) * -4px), -20px) scale(0.98);
+    filter: drop-shadow(0 0 20px rgba(255, 185, 100, 0.45));
+  }
+}
+
+/* Layer 3: Equipment Micro-LEDs & Subtle Movement */
+.gym-equipment-fx-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  transform: translate3d(calc(var(--parallax-x, 0) * -7px), calc(var(--parallax-y, 0) * -5px), -15px);
+}
+
+.gym-micro-led {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.phase-leds .gym-micro-led,
+.phase-panel .gym-micro-led,
+.phase-ready .gym-micro-led {
+  opacity: 1;
+}
+
+.gym-led-cyan {
+  background-color: #00e5ff;
+  box-shadow: 0 0 8px #00e5ff, 0 0 16px rgba(0, 229, 255, 0.6);
+  animation: ledBlinkCyan 3.2s ease-in-out infinite;
+}
+
+.gym-led-amber {
+  background-color: #ffab00;
+  box-shadow: 0 0 8px #ffab00, 0 0 16px rgba(255, 171, 0, 0.6);
+  animation: ledBlinkAmber 4.1s ease-in-out infinite;
+}
+
+.gym-led-emerald {
+  background-color: #00e676;
+  box-shadow: 0 0 8px #00e676, 0 0 16px rgba(0, 230, 118, 0.6);
+  animation: ledBlinkEmerald 2.7s ease-in-out infinite;
+}
+
+@keyframes ledBlinkCyan {
+  0%, 100% { opacity: 0.35; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 12px #00e5ff; }
+}
+
+@keyframes ledBlinkAmber {
+  0%, 100% { opacity: 0.3; transform: scale(0.85); }
+  40% { opacity: 0.95; transform: scale(1.15); box-shadow: 0 0 12px #ffab00; }
+}
+
+@keyframes ledBlinkEmerald {
+  0%, 100% { opacity: 0.4; transform: scale(0.9); }
+  65% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 12px #00e676; }
+}
+
+/* Cable Machine subtle breathing weight lift */
+.gym-cable-weight-anim {
+  position: absolute;
+  left: 70.8%;
+  top: 48%;
+  width: 14px;
+  height: 60px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border-radius: 2px;
+  animation: cableWeightBreathe 8s ease-in-out infinite alternate;
+  opacity: 0.5;
+}
+
+@keyframes cableWeightBreathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3.5px); }
+}
+
+/* Treadmill subtle runner belt drift */
+.gym-treadmill-belt-anim {
+  position: absolute;
+  left: 79.8%;
+  top: 73.5%;
+  width: 65px;
+  height: 18px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 0px,
+    rgba(255, 255, 255, 0.03) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  animation: treadmillBeltDrift 2.2s linear infinite;
+  opacity: 0.4;
+}
+
+@keyframes treadmillBeltDrift {
+  0% { background-position: 0 0; }
+  100% { background-position: 24px 0; }
+}
+
+/* Floating Sunset Dust Motes */
+.gym-dust-motes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.gym-dust-mote {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 220, 160, 0.7);
+  box-shadow: 0 0 6px rgba(255, 200, 120, 0.8);
+  animation: dustFloat 12s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes dustFloat {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.1;
+  }
+  40% {
+    opacity: 0.75;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate3d(60px, -70px, 0);
+    opacity: 0;
+  }
+}
+
+/* =========================================================
+   LAYER 4: INTERACTIVE FLOATING FROSTED GLASS PANEL
+   - Exact match to media_1789314853831.jpg
+   - 2deg - 4deg Mouse Parallax Tilt (Damped Lerp)
+   - Gentle Float Suspension (Airborne)
+   - Sweeping Specular Glass Reflection Sheen
+   ========================================================= */
+
+.gym-floating-panel-container {
+  position: absolute;
+  left: 34.96%;
+  top: 7.46%;
+  width: 32.13%;
+  height: 69.8%;
+  z-index: 20;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Materialization transition */
+.phase-dark .gym-floating-panel-container,
+.phase-lights .gym-floating-panel-container,
+.phase-leds .gym-floating-panel-container {
+  opacity: 0;
+  transform: translateY(-30px) scale(0.94) rotateX(6deg);
+  pointer-events: none;
+  filter: blur(8px);
+}
+
+.phase-panel .gym-floating-panel-container {
+  opacity: 1;
+  transform: translateY(0) scale(1) rotateX(0deg);
+  pointer-events: auto;
+  filter: blur(0px);
+  transition: opacity 1.4s ease, transform 1.6s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s ease;
+}
+
+.phase-ready .gym-floating-panel-container {
+  opacity: 1;
+  pointer-events: auto;
+  filter: blur(0px);
+}
+
+/* Airborne float suspension cycle */
+.gym-panel-float-wrapper {
+  width: 100%;
+  height: 100%;
+  animation: cardFloatingSuspension 5.8s ease-in-out infinite alternate;
+  transform-style: preserve-3d;
+}
+
+@keyframes cardFloatingSuspension {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-7px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Frosted Glass Slab */
+.gym-glass-slab {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 36px;
+  background: rgba(22, 26, 33, 0.52);
+  backdrop-filter: blur(28px) saturate(140%);
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
+  border: 1.2px solid rgba(255, 255, 255, 0.32);
+  box-shadow:
+    0 25px 55px -10px rgba(0, 0, 0, 0.75),
+    0 10px 25px -5px rgba(0, 0, 0, 0.5),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.45),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.6);
+  padding: 24px 22px 20px 22px;
+  overflow: hidden;
+  will-change: transform, box-shadow;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+/* Diagonal Specular Sheen Sweep */
+.gym-glass-sheen {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 42%,
+    rgba(255, 255, 255, 0.08) 46%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(255, 255, 255, 0.08) 54%,
+    transparent 58%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  animation: glassSheenSweep 9s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes glassSheenSweep {
+  0% { transform: translateX(-100%); opacity: 0; }
+  15% { opacity: 0.85; }
+  35% { transform: translateX(100%); opacity: 0.85; }
+  36%, 100% { transform: translateX(100%); opacity: 0; }
+}
+
+/* Top Right Micro Tag (MIND / BODY / BETTER YOU) */
+.gym-card-header-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.gym-card-badge {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.gym-card-badge span {
+  font-size: 0.48rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.gym-badge-line {
+  width: 14px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.4);
+  margin-top: 3px;
+}
+
+/* Card Titles */
+.gym-card-title {
+  font-size: 1.62rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.gym-card-subtitle {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 0.04em;
+  margin: 0 0 20px 0;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Role Selector Capsule Pills (Trainer / Member Switcher) */
+.gym-role-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 9999px;
+  padding: 3px;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 2;
+}
+
+.gym-role-pill {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.gym-role-pill.active {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.gym-role-pill:hover:not(.active) {
+  color: #ffffff;
+}
+
+/* 1-Click Fast-Track Shortcut Chips */
+.gym-fast-shortcuts {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.gym-fast-chip {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+}
+
+.gym-fast-chip:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.gym-fast-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #3a4454 0%, #171d27 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  color: #ffffff;
+}
+
+.gym-fast-name {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+}
+
+.gym-fast-role {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Form Container */
+.gym-auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Translucent Capsule Input Wells */
+.gym-input-capsule {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  height: 48px;
+  padding: 0 16px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.4);
+}
+
+.gym-input-capsule:focus-within {
+  transform: scale(1.018);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 0 18px rgba(255, 255, 255, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.35);
+}
+
+.gym-input-icon {
+  color: rgba(255, 255, 255, 0.55);
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.gym-input-capsule:focus-within .gym-input-icon {
+  color: #ffffff;
+}
+
+.gym-input-field {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 0.86rem;
+  font-weight: 500;
+  font-family: inherit;
+}
+
+.gym-input-field::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 400;
+}
+
+.gym-input-action {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.gym-input-action:hover {
+  color: #ffffff;
+}
+
+/* Options Row (Remember me & Forgot password) */
+.gym-options-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1px;
+  margin-bottom: 5px;
+}
+
+.gym-remember-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+}
+
+.gym-remember-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 4px;
+  border: 1.2px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.gym-remember-checkbox:checked {
+  background: #ffffff;
+  border-color: #ffffff;
+}
+
+.gym-remember-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 4px;
+  width: 4px;
+  height: 8px;
+  border: solid #000000;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.gym-forgot-link {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  padding: 0;
+}
+
+.gym-forgot-link:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Primary CTA Button: Log In -> */
+.gym-login-btn {
+  width: 100%;
+  height: 50px;
+  border-radius: 9999px;
+  background: #14171d;
+  border: 1.2px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.5),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.4),
+    inset 0 -1.5px 3px rgba(0, 0, 0, 0.8);
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 4px;
+}
+
+.gym-login-btn:hover {
+  transform: translateY(-2px);
+  background: #1c2028;
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(255, 255, 255, 0.2),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.6);
+}
+
+.gym-login-btn:active {
+  transform: scale(0.96);
+  background: #0f1217;
+}
+
+.gym-btn-arrow {
+  font-size: 1.1rem;
+  font-weight: 400;
+  transition: transform 0.2s ease;
+}
+
+.gym-login-btn:hover .gym-btn-arrow {
+  transform: translateX(3px);
+}
+
+/* Button light sweep on click */
+.gym-btn-light-sweep {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+}
+
+.is-animating-click .gym-btn-light-sweep {
+  animation: btnSweepAnim 0.65s ease-out forwards;
+}
+
+@keyframes btnSweepAnim {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Divider: -- OR CONTINUE WITH -- */
+.gym-divider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0 14px 0;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 2;
+}
+
+.gym-divider-row::before,
+.gym-divider-row::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* Circular Social Buttons: Google, Apple, Discord */
+.gym-social-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 2;
+}
+
+.gym-social-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #ffffff;
+}
+
+.gym-social-circle:hover {
+  transform: translateY(-2px) scale(1.08);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.55),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Footer: New here? Create an account */
+.gym-card-footer {
+  text-align: center;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  position: relative;
+  z-index: 2;
+}
+
+.gym-card-footer a,
+.gym-card-footer button {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 4px;
+  padding: 0;
+  transition: opacity 0.2s ease;
+}
+
+.gym-card-footer a:hover,
+.gym-card-footer button:hover {
+  opacity: 0.8;
+}
+
+/* =========================================================
+   LAYER 5 & 6: FOREGROUND BENCH & BAG PARALLAX PLANES
+   - Bench on bottom left moves faster in parallax
+   - Bag / ottoman on bottom right moves faster in parallax
+   ========================================================= */
+
+.gym-layer-foreground-bench {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 32%;
+  height: 52%;
+  pointer-events: none;
+  z-index: 30;
+  transform: translate3d(calc(var(--parallax-x, 0) * 16px), calc(var(--parallax-y, 0) * 10px), 40px);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.gym-foreground-bench-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left bottom;
+}
+
+.gym-layer-foreground-bag {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 29%;
+  height: 48%;
+  pointer-events: none;
+  z-index: 30;
+  transform: translate3d(calc(var(--parallax-x, 0) * -16px), calc(var(--parallax-y, 0) * 10px), 40px);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.gym-foreground-bag-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: right bottom;
+}
+
+/* =========================================================
+   DASHBOARD TRANSITION ON LOGIN
+   - Panel glides forward into the camera with motion blur
+   - Camera pushes deep into the gym towards dashboard
+   ========================================================= */
+
+.is-transitioning-dashboard .gym-floating-panel-container {
+  transform: translate(-50%, -50%) scale(1.35) translateZ(160px);
+  opacity: 0;
+  filter: blur(14px);
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s ease, filter 0.65s ease;
+  pointer-events: none;
+}
+
+.is-transitioning-dashboard .cinematic-gym-camera {
+  transform: scale(1.32) translateZ(180px);
+  filter: brightness(1.25) contrast(1.1);
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), filter 0.85s ease;
+}
+
+/* =========================================================
+   CLEAN PROFESSIONAL DARK GLASSMORPHISM AUTHENTICATION
+   - Luxury Gym Interior Sunset Background
+   - Centered Dark Glassmorphic Dashboard Card
+   - Text & Button Micro-Animations Only (No 3D)
+   ========================================================= */
+
+.gym-auth-page-wrapper {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #06080d;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  user-select: none;
+  z-index: 100;
+}
+
+/* Background image filling the entire viewport */
+.gym-auth-bg-media {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  z-index: 1;
+  filter: brightness(0.85) contrast(1.05);
+}
+
+/* Atmospheric vignette overlay */
+.gym-auth-vignette-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(6, 8, 14, 0.45) 0%, rgba(6, 8, 14, 0.82) 100%),
+    linear-gradient(180deg, rgba(6, 8, 14, 0.35) 0%, transparent 25%, transparent 75%, rgba(6, 8, 14, 0.65) 100%);
+}
+
+/* Centered container */
+.gym-auth-center-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  box-sizing: border-box;
+}
+
+/* The Dark Glassmorphic Dashboard Card in the Middle */
+.gym-dark-glass-card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: rgba(12, 16, 25, 0.82);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 28px;
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.7),
+    0 0 35px rgba(0, 0, 0, 0.45),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.22);
+  padding: 38px 36px;
+  box-sizing: border-box;
+  animation: cardFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  overflow: hidden;
+}
+
+.gym-dark-glass-card.gym-signup-card {
+  max-width: 480px;
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Subtle Specular Sheen Sweep across Card */
+.gym-card-sheen-sweep {
+  position: absolute;
+  top: -60%;
+  left: -100%;
+  width: 60%;
+  height: 220%;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.03) 45%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.03) 55%,
+    transparent 80%
+  );
+  transform: rotate(26deg);
+  animation: cardGlassSweepAnim 9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes cardGlassSweepAnim {
+  0% { transform: translateX(0) rotate(26deg); }
+  25%, 100% { transform: translateX(380%) rotate(26deg); }
+}
+
+/* Top Row: Brand & Badges */
+.gym-card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.gym-brand-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.gym-brand-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00b4ff;
+  box-shadow: 0 0 8px #00b4ff;
+}
+
+.gym-brand-text {
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  color: #ffffff;
+}
+
+.gym-badge-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.gym-badge-tag {
+  font-size: 0.54rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.45);
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+}
+
+/* Card Header Typography */
+.gym-card-header {
+  margin-bottom: 24px;
+}
+
+.gym-card-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.gym-card-subtitle {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #94a3b8;
+  margin: 6px 0 0;
+  letter-spacing: 0.01em;
+}
+
+/* Form Styles */
+.gym-login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.gym-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+
+.gym-field-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+.gym-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gym-forgot-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.gym-forgot-btn:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Translucent Dark Capsule Wells */
+.gym-input-capsule {
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.2px solid rgba(255, 255, 255, 0.14);
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.3);
+}
+
+.gym-input-capsule:focus-within {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(0, 180, 255, 0.65);
+  box-shadow:
+    0 0 20px rgba(0, 180, 255, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.gym-input-icon {
+  color: rgba(255, 255, 255, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+
+.gym-input-capsule:focus-within .gym-input-icon {
+  color: #00b4ff;
+}
+
+.gym-input-field {
+  flex: 1;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 500;
+  font-family: inherit;
+}
+
+.gym-input-field::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.gym-password-toggle-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.gym-password-toggle-btn:hover {
+  color: #ffffff;
+}
+
+/* Options Row */
+.gym-options-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.gym-remember-label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.gym-remember-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1.2px solid rgba(255, 255, 255, 0.28);
+  background: rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  margin: 0;
+}
+
+.gym-remember-checkbox:checked {
+  background: #0084ff;
+  border-color: #0084ff;
+  box-shadow: 0 0 10px rgba(0, 132, 255, 0.5);
+}
+
+.gym-remember-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  top: 1.5px;
+  left: 4.5px;
+  width: 4px;
+  height: 8px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Primary Action Button */
+.gym-login-submit-btn {
+  width: 100%;
+  height: 50px;
+  border-radius: 14px;
+  background: #121620;
+  border: 1.2px solid rgba(255, 255, 255, 0.24);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.55),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.3);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gym-login-submit-btn:hover {
+  transform: translateY(-2px);
+  background: #191f2d;
+  border-color: rgba(0, 180, 255, 0.65);
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.65),
+    0 0 24px rgba(0, 180, 255, 0.3);
+}
+
+.gym-login-submit-btn:active {
+  transform: scale(0.98);
+}
+
+.gym-btn-shine-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+}
+
+.gym-login-submit-btn:hover .gym-btn-shine-bar,
+.gym-login-submit-btn.is-sweeping .gym-btn-shine-bar {
+  animation: btnShineSweep 0.7s ease-out forwards;
+}
+
+@keyframes btnShineSweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.gym-btn-arrow-icon {
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+
+.gym-login-submit-btn:hover .gym-btn-arrow-icon {
+  transform: translateX(3px);
+}
+
+/* Divider */
+.gym-divider-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 20px 0 18px 0;
+}
+
+.gym-divider-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.gym-divider-text {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.38);
+  text-transform: uppercase;
+}
+
+/* Social Authentication Row */
+.gym-social-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.gym-social-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #ffffff;
+}
+
+.gym-social-btn:hover {
+  transform: translateY(-2px) scale(1.08);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(0, 180, 255, 0.5);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.5),
+    0 0 16px rgba(0, 180, 255, 0.25);
+}
+
+/* Footer Link */
+.gym-card-footer {
+  text-align: center;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.gym-card-footer-link {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.82rem;
+  padding: 0;
+  transition: opacity 0.2s ease;
+}
+
+.gym-card-footer-link:hover {
+  opacity: 0.8;
+}
+
+/* =========================================================
+   SIGNUP WIZARD SPECIFICS
+   ========================================================= */
+
+.gym-signup-steps-tracker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gym-step-indicator {
+  width: 20px;
+  height: 4px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.15);
+  transition: all 0.25s ease;
+}
+
+.gym-step-indicator.is-done {
+  background: #0084ff;
+}
+
+.gym-step-indicator.is-current {
+  width: 32px;
+  background: #00b4ff;
+  box-shadow: 0 0 10px #00b4ff;
+}
+
+.gym-signup-step-kicker {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #00b4ff;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 4px;
+}
+
+.gym-goals-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.gym-goal-card {
+  text-align: left;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.2px solid rgba(255, 255, 255, 0.14);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gym-goal-card:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.gym-goal-card.is-selected {
+  background: rgba(0, 132, 255, 0.14);
+  border-color: #00b4ff;
+  box-shadow: 0 0 18px rgba(0, 180, 255, 0.3);
+}
+
+.gym-goal-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.gym-goal-desc {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  line-height: 1.3;
+}
+
+.gym-step-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.gym-secondary-btn {
+  padding: 0 18px;
+  height: 50px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gym-secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.gym-signup-success-view {
+  text-align: center;
+  padding: 16px 8px;
+}
+
+.gym-success-badge {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  margin: 0 auto 18px;
+  background: linear-gradient(135deg, #0084ff, #0050c8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: #ffffff;
+  box-shadow: 0 0 25px rgba(0, 132, 255, 0.6);
+}
+
