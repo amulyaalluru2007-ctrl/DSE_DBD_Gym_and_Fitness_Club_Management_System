@@ -19,9 +19,9 @@
 * **Program:** Project-Based Learning (PBL) 2026–27
 * **Team ID:** `PBL-25CS1302E-04` | **Section:** `CSE-S1`
 * **Team Members:**
-  * **Nihal Metuku** (`2300030001`)
-  * **K. Shreyas** (`2300030002`)
-  * **Sai Sathwik** (`2300030003`)
+  * **Nihal Metuku** (`2520030124`)
+  * **K. Bhavana** (`2520030003`)
+  * **A. Amulya** (`2520030032`)
 * **Project Guide:** Dr. Faculty Mentor, CSE Department
 
 ---
