@@ -5,22 +5,6 @@ function FinalSection() {
   };
 
   const handleEnterClick = () => {
-    try {
-      const stored = localStorage.getItem("fitpulse_user");
-      if (stored) {
-        const user = JSON.parse(stored);
-        if (user.role === "Admin") {
-          navigateTo("/admin-dashboard");
-          return;
-        } else if (user.role === "Trainer") {
-          navigateTo("/trainer-dashboard");
-          return;
-        } else if (user.role === "Member") {
-          navigateTo("/dashboard");
-          return;
-        }
-      }
-    } catch {}
     navigateTo("/login");
   };
 

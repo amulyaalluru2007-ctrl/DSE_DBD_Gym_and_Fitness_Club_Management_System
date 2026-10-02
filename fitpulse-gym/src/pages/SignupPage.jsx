@@ -3,6 +3,7 @@ import "../styles/auth-3d.css";
 
 const steps = [
   "IDENTITY",
+  "BODY & STATS",
   "CONTACT",
   "SECURITY",
   "GOAL",
@@ -39,6 +40,12 @@ function SignupPage() {
   const [form, setForm] = useState({
     name: "",
     gender: "Male",
+    age: "22",
+    height_cm: "175",
+    weight_kg: "70",
+    target_weight_kg: "75",
+    fitness_level: "Intermediate",
+    workout_frequency: "4-5 Days / Week",
     email: "",
     phone: "",
     password: "",
@@ -55,20 +62,38 @@ function SignupPage() {
   };
 
   const validateCurrentStep = () => {
-    if (currentStep === 0) return form.name.trim().length >= 2 && Boolean(form.gender);
-    if (currentStep === 1) return form.email.includes("@") && form.email.includes(".");
-    if (currentStep === 2) return form.password.length >= 6 && form.password === form.confirmPassword;
-    if (currentStep === 3) return Boolean(form.goal);
+    if (currentStep === 0) {
+      return form.name.trim().length >= 2 && Boolean(form.gender) && Number(form.age) > 0;
+    }
+    if (currentStep === 1) {
+      return (
+        Number(form.height_cm) >= 80 &&
+        Number(form.weight_kg) >= 25 &&
+        Number(form.target_weight_kg) >= 25 &&
+        Boolean(form.fitness_level) &&
+        Boolean(form.workout_frequency)
+      );
+    }
+    if (currentStep === 2) {
+      return form.email.includes("@") && form.email.includes(".");
+    }
+    if (currentStep === 3) {
+      return form.password.length >= 6 && form.password === form.confirmPassword;
+    }
+    if (currentStep === 4) {
+      return Boolean(form.goal);
+    }
     return false;
   };
 
   const nextStep = async (e) => {
     if (e) e.preventDefault();
     if (!validateCurrentStep()) {
-      if (currentStep === 0) alert("Please enter your name (at least 2 characters) and select your gender.");
-      else if (currentStep === 1) alert("Please enter a valid email address.");
-      else if (currentStep === 2) alert("Password must be at least 6 characters and match confirmation.");
-      else if (currentStep === 3) alert("Please select a fitness goal.");
+      if (currentStep === 0) alert("Please enter your name (at least 2 characters), age, and select your gender.");
+      else if (currentStep === 1) alert("Please provide valid height (cm), current weight (kg), and target weight (kg).");
+      else if (currentStep === 2) alert("Please enter a valid email address.");
+      else if (currentStep === 3) alert("Password must be at least 6 characters and match confirmation.");
+      else if (currentStep === 4) alert("Please select a fitness goal.");
       return;
     }
 
@@ -85,6 +110,12 @@ function SignupPage() {
             email: form.email,
             phone: form.phone,
             gender: form.gender,
+            age: form.age,
+            height_cm: form.height_cm,
+            weight_kg: form.weight_kg,
+            target_weight_kg: form.target_weight_kg,
+            fitness_level: form.fitness_level,
+            workout_frequency: form.workout_frequency,
             password: form.password,
             goal: form.goal,
           }),
@@ -101,6 +132,12 @@ function SignupPage() {
               name: form.name,
               email: form.email,
               gender: form.gender,
+              age: form.age,
+              height: form.height_cm,
+              weight: form.weight_kg,
+              targetWeight: form.target_weight_kg,
+              fitnessLevel: form.fitness_level,
+              workoutFrequency: form.workout_frequency,
               goal: form.goal,
               role: "Member",
             })
@@ -114,6 +151,12 @@ function SignupPage() {
             name: form.name,
             email: form.email,
             gender: form.gender,
+            age: form.age,
+            height: form.height_cm,
+            weight: form.weight_kg,
+            targetWeight: form.target_weight_kg,
+            fitnessLevel: form.fitness_level,
+            workoutFrequency: form.workout_frequency,
             goal: form.goal,
             role: "Member",
           })
@@ -183,20 +226,23 @@ function SignupPage() {
                 </div>
                 <h1 className="gym-card-title">
                   {currentStep === 0 && "Join FitPulse"}
-                  {currentStep === 1 && "Contact Details"}
-                  {currentStep === 2 && "Secure Access"}
-                  {currentStep === 3 && "Your Target Goal"}
+                  {currentStep === 1 && "Body & Gym Metrics"}
+                  {currentStep === 2 && "Contact Details"}
+                  {currentStep === 3 && "Secure Access"}
+                  {currentStep === 4 && "Your Target Goal"}
                 </h1>
                 <p className="gym-card-subtitle">
                   {currentStep === 0 && "Start your elite transformation journey."}
-                  {currentStep === 1 && "Where should we send your workout analytics?"}
-                  {currentStep === 2 && "Create a secure password for your portal."}
-                  {currentStep === 3 && "Select your primary training objective."}
+                  {currentStep === 1 && "Provide your biometrics and gym experience for tailored programming."}
+                  {currentStep === 2 && "Where should we send your workout analytics?"}
+                  {currentStep === 3 && "Create a secure password for your portal."}
+                  {currentStep === 4 && "Select your primary training objective."}
                 </p>
               </div>
 
               {/* Form Content per Step */}
               <form onSubmit={nextStep} className="gym-login-form">
+                {/* STEP 0: IDENTITY */}
                 {currentStep === 0 && (
                   <>
                     <div className="gym-field-group">
@@ -223,39 +269,182 @@ function SignupPage() {
                       </div>
                     </div>
 
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginTop: "14px" }}>
+                      <div className="gym-field-group">
+                        <label htmlFor="signup-age" className="gym-field-label">
+                          Age (Years)
+                        </label>
+                        <div className="gym-input-capsule">
+                          <span className="gym-input-icon">🎂</span>
+                          <input
+                            id="signup-age"
+                            type="number"
+                            min="14"
+                            max="100"
+                            className="gym-input-field"
+                            placeholder="22"
+                            value={form.age}
+                            onChange={(e) => updateField("age", e.target.value)}
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div className="gym-field-group">
+                        <label className="gym-field-label">Gender</label>
+                        <select
+                          className="gym-input-field"
+                          value={form.gender}
+                          onChange={(e) => updateField("gender", e.target.value)}
+                          style={{
+                            background: "rgba(255, 255, 255, 0.05)",
+                            border: "1px solid rgba(255, 255, 255, 0.12)",
+                            borderRadius: "12px",
+                            padding: "11px 14px",
+                            color: "#fff",
+                            fontSize: "0.85rem",
+                            outline: "none",
+                            width: "100%",
+                            cursor: "pointer"
+                          }}
+                        >
+                          <option value="Male" style={{ background: "#0f172a" }}>Male</option>
+                          <option value="Female" style={{ background: "#0f172a" }}>Female</option>
+                          <option value="Non-Binary" style={{ background: "#0f172a" }}>Non-Binary</option>
+                          <option value="Prefer not to say" style={{ background: "#0f172a" }}>Prefer not to say</option>
+                        </select>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* STEP 1: BODY & GYM METRICS */}
+                {currentStep === 1 && (
+                  <>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                      <div className="gym-field-group">
+                        <label htmlFor="signup-height" className="gym-field-label">
+                          Height (cm)
+                        </label>
+                        <div className="gym-input-capsule">
+                          <span className="gym-input-icon">📏</span>
+                          <input
+                            id="signup-height"
+                            type="number"
+                            min="80"
+                            max="250"
+                            className="gym-input-field"
+                            placeholder="175"
+                            value={form.height_cm}
+                            onChange={(e) => updateField("height_cm", e.target.value)}
+                            autoFocus
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div className="gym-field-group">
+                        <label htmlFor="signup-weight" className="gym-field-label">
+                          Current Weight (kg)
+                        </label>
+                        <div className="gym-input-capsule">
+                          <span className="gym-input-icon">⚖️</span>
+                          <input
+                            id="signup-weight"
+                            type="number"
+                            min="25"
+                            max="300"
+                            step="0.1"
+                            className="gym-input-field"
+                            placeholder="70.0"
+                            value={form.weight_kg}
+                            onChange={(e) => updateField("weight_kg", e.target.value)}
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="gym-field-group" style={{ marginTop: "12px" }}>
+                      <label htmlFor="signup-target-weight" className="gym-field-label">
+                        Target Goal Weight (kg)
+                      </label>
+                      <div className="gym-input-capsule">
+                        <span className="gym-input-icon">🎯</span>
+                        <input
+                          id="signup-target-weight"
+                          type="number"
+                          min="25"
+                          max="300"
+                          step="0.1"
+                          className="gym-input-field"
+                          placeholder="75.0"
+                          value={form.target_weight_kg}
+                          onChange={(e) => updateField("target_weight_kg", e.target.value)}
+                          required
+                        />
+                      </div>
+                    </div>
+
                     <div className="gym-field-group" style={{ marginTop: "14px" }}>
-                      <label className="gym-field-label">Gender</label>
-                      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "10px", marginTop: "6px" }}>
+                      <label className="gym-field-label">Gym Experience Level</label>
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "8px", marginTop: "6px" }}>
                         {[
-                          { id: "Male", label: "Male", icon: "♂" },
-                          { id: "Female", label: "Female", icon: "♀" },
-                          { id: "Non-Binary", label: "Non-Binary", icon: "⚧" },
-                          { id: "Prefer not to say", label: "Prefer not to say", icon: "✦" },
-                        ].map((g) => (
+                          { id: "Beginner", label: "Beginner", sub: "< 6 months" },
+                          { id: "Intermediate", label: "Intermediate", sub: "6m - 2 yrs" },
+                          { id: "Advanced", label: "Advanced", sub: "2+ years" },
+                        ].map((lvl) => (
                           <button
-                            key={g.id}
+                            key={lvl.id}
                             type="button"
-                            onClick={() => updateField("gender", g.id)}
+                            onClick={() => updateField("fitness_level", lvl.id)}
                             style={{
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              gap: "8px",
-                              padding: "11px 12px",
+                              padding: "9px 8px",
                               borderRadius: "10px",
-                              background: form.gender === g.id ? "rgba(255, 255, 255, 0.12)" : "rgba(255, 255, 255, 0.03)",
-                              border: form.gender === g.id ? "1px solid rgba(255, 255, 255, 0.45)" : "1px solid rgba(255, 255, 255, 0.08)",
-                              color: form.gender === g.id ? "#ffffff" : "rgba(255, 255, 255, 0.65)",
-                              fontWeight: form.gender === g.id ? "600" : "500",
-                              fontSize: "0.82rem",
-                              letterSpacing: "0.02em",
+                              background: form.fitness_level === lvl.id ? "rgba(56, 189, 248, 0.18)" : "rgba(255, 255, 255, 0.03)",
+                              border: form.fitness_level === lvl.id ? "1px solid #38bdf8" : "1px solid rgba(255, 255, 255, 0.08)",
+                              color: form.fitness_level === lvl.id ? "#38bdf8" : "rgba(255, 255, 255, 0.7)",
+                              fontWeight: "600",
+                              fontSize: "0.8rem",
                               cursor: "pointer",
-                              transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
-                              boxShadow: form.gender === g.id ? "0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)" : "none",
+                              textAlign: "center",
+                              transition: "all 0.2s ease",
                             }}
                           >
-                            <span style={{ fontSize: "1rem", opacity: form.gender === g.id ? 1 : 0.6 }}>{g.icon}</span>
-                            <span>{g.label}</span>
+                            <div>{lvl.label}</div>
+                            <div style={{ fontSize: "0.68rem", opacity: 0.65, fontWeight: "400", marginTop: "2px" }}>{lvl.sub}</div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="gym-field-group" style={{ marginTop: "14px" }}>
+                      <label className="gym-field-label">Weekly Training Frequency</label>
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "8px", marginTop: "6px" }}>
+                        {[
+                          { id: "2-3 Days / Week", label: "2 - 3 Days", sub: "Casual" },
+                          { id: "4-5 Days / Week", label: "4 - 5 Days", sub: "Dedicated" },
+                          { id: "6 Days / Week", label: "6 Days", sub: "Athlete" },
+                        ].map((freq) => (
+                          <button
+                            key={freq.id}
+                            type="button"
+                            onClick={() => updateField("workout_frequency", freq.id)}
+                            style={{
+                              padding: "9px 8px",
+                              borderRadius: "10px",
+                              background: form.workout_frequency === freq.id ? "rgba(168, 85, 247, 0.18)" : "rgba(255, 255, 255, 0.03)",
+                              border: form.workout_frequency === freq.id ? "1px solid #c084fc" : "1px solid rgba(255, 255, 255, 0.08)",
+                              color: form.workout_frequency === freq.id ? "#c084fc" : "rgba(255, 255, 255, 0.7)",
+                              fontWeight: "600",
+                              fontSize: "0.8rem",
+                              cursor: "pointer",
+                              textAlign: "center",
+                              transition: "all 0.2s ease",
+                            }}
+                          >
+                            <div>{freq.label}</div>
+                            <div style={{ fontSize: "0.68rem", opacity: 0.65, fontWeight: "400", marginTop: "2px" }}>{freq.sub}</div>
                           </button>
                         ))}
                       </div>
@@ -263,7 +452,8 @@ function SignupPage() {
                   </>
                 )}
 
-                {currentStep === 1 && (
+                {/* STEP 2: CONTACT */}
+                {currentStep === 2 && (
                   <>
                     <div className="gym-field-group">
                       <label htmlFor="signup-email" className="gym-field-label">
@@ -302,7 +492,7 @@ function SignupPage() {
                           id="signup-phone"
                           type="tel"
                           className="gym-input-field"
-                          placeholder="+1 (555) 019-2834"
+                          placeholder="+91 98765 43210"
                           value={form.phone}
                           onChange={(e) => updateField("phone", e.target.value)}
                         />
@@ -311,7 +501,8 @@ function SignupPage() {
                   </>
                 )}
 
-                {currentStep === 2 && (
+                {/* STEP 3: SECURITY */}
+                {currentStep === 3 && (
                   <>
                     <div className="gym-field-group">
                       <label htmlFor="signup-password" className="gym-field-label">
@@ -368,7 +559,8 @@ function SignupPage() {
                   </>
                 )}
 
-                {currentStep === 3 && (
+                {/* STEP 4: PRIMARY GOAL */}
+                {currentStep === 4 && (
                   <div className="gym-goals-grid">
                     {goals.map((g) => (
                       <button
@@ -399,9 +591,10 @@ function SignupPage() {
                     type="submit"
                     className="gym-login-submit-btn"
                     style={{ flex: 1 }}
+                    disabled={isSubmitting}
                   >
                     <div className="gym-btn-shine-bar" />
-                    <span>{currentStep === steps.length - 1 ? "Complete Registration" : "Continue"}</span>
+                    <span>{currentStep === steps.length - 1 ? (isSubmitting ? "Creating Account..." : "Complete Registration") : "Continue"}</span>
                     <span className="gym-btn-arrow-icon">→</span>
                   </button>
                 </div>

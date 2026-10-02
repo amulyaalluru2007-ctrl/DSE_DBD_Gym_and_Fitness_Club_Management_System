@@ -21,7 +21,20 @@ const createToken = (user) => {
 ===================================================== */
 export const registerUser = async (req, res) => {
   try {
-    const { name, email, phone, gender, password, goal } = req.body;
+    const {
+      name,
+      email,
+      phone,
+      gender,
+      password,
+      goal,
+      age,
+      height_cm,
+      weight_kg,
+      target_weight_kg,
+      fitness_level,
+      workout_frequency,
+    } = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({
@@ -45,12 +58,34 @@ export const registerUser = async (req, res) => {
     const passwordHash = await bcrypt.hash(password, salt);
     const userGender = gender || "Not Specified";
     const userGoal = goal || "Build Muscle";
+    const userAge = age ? parseInt(age, 10) : 22;
+    const userHeight = height_cm ? parseFloat(height_cm) : 175.0;
+    const userWeight = weight_kg ? parseFloat(weight_kg) : 70.0;
+    const userTargetWeight = target_weight_kg ? parseFloat(target_weight_kg) : null;
+    const userFitnessLevel = fitness_level || "Intermediate";
+    const userWorkoutFreq = workout_frequency || "4-5 Days / Week";
     const membershipId = `FP-${Math.floor(1000 + Math.random() * 9000)}-ELITE`;
 
     const [insertResult] = await pool.query(
-      `INSERT INTO users (full_name, email, phone, gender, password_hash, goal, role, membership_id, avatar_url)
-       VALUES (?, ?, ?, ?, ?, ?, 'Member', ?, 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=160&auto=format&fit=crop&q=80')`,
-      [name, normalizedEmail, phone || "", userGender, passwordHash, userGoal, membershipId]
+      `INSERT INTO users (
+        full_name, email, phone, gender, age, password_hash, goal, role, membership_id,
+        height_cm, weight_kg, target_weight_kg, fitness_level, workout_frequency, avatar_url
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, 'Member', ?, ?, ?, ?, ?, ?, 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=160&auto=format&fit=crop&q=80')`,
+      [
+        name,
+        normalizedEmail,
+        phone || "",
+        userGender,
+        userAge,
+        passwordHash,
+        userGoal,
+        membershipId,
+        userHeight,
+        userWeight,
+        userTargetWeight,
+        userFitnessLevel,
+        userWorkoutFreq,
+      ]
     );
 
     const newUser = {
@@ -59,6 +94,12 @@ export const registerUser = async (req, res) => {
       email: normalizedEmail,
       phone: phone || "",
       gender: userGender,
+      age: userAge,
+      height_cm: userHeight,
+      weight_kg: userWeight,
+      target_weight_kg: userTargetWeight,
+      fitness_level: userFitnessLevel,
+      workout_frequency: userWorkoutFreq,
       goal: userGoal,
       role: "Member",
       membershipId,
@@ -135,11 +176,15 @@ export const loginUser = async (req, res) => {
       email: user.email,
       phone: user.phone,
       gender: user.gender,
+      age: user.age,
       goal: user.goal,
       role: user.role,
       membershipId: user.membership_id,
       height: user.height_cm,
       weight: user.weight_kg,
+      targetWeight: user.target_weight_kg,
+      fitnessLevel: user.fitness_level,
+      workoutFrequency: user.workout_frequency,
       avatar: user.avatar_url,
       personalEmail: user.personal_email || null,
       specialty: user.specialty || null,

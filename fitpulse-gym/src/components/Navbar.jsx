@@ -300,37 +300,9 @@ export default function Navbar() {
             <span className="navbar-3d-label">Portal</span>
           </button>
 
-          {/* Quick Portal Switcher Popover */}
+          {/* Quick Portal Switcher Popover - Only Login */}
           {showPortalMenu && (
             <div className="navbar-3d-portal-dropdown">
-              <button
-                className="navbar-3d-portal-opt"
-                onClick={() => {
-                  setShowPortalMenu(false);
-                  navigateTo("/trainer-dashboard");
-                }}
-              >
-                <span className="navbar-3d-portal-opt-icon">🏋️</span>
-                <div>
-                  <div className="navbar-3d-portal-opt-title">Trainer Command OS</div>
-                  <div className="navbar-3d-portal-opt-sub">Coach roster & client plans</div>
-                </div>
-              </button>
-
-              <button
-                className="navbar-3d-portal-opt"
-                onClick={() => {
-                  setShowPortalMenu(false);
-                  navigateTo("/dashboard");
-                }}
-              >
-                <span className="navbar-3d-portal-opt-icon">👤</span>
-                <div>
-                  <div className="navbar-3d-portal-opt-title">Member Experience</div>
-                  <div className="navbar-3d-portal-opt-sub">Workouts, streak & metrics</div>
-                </div>
-              </button>
-
               <button
                 className="navbar-3d-portal-opt"
                 onClick={() => {
