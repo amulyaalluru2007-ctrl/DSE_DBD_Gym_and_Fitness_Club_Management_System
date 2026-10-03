@@ -231,8 +231,15 @@ export const assignTrainerToMember = async (req, res) => {
   try {
     const { memberId, trainerId } = req.body;
 
-    if (!memberId || !trainerId) {
-      return res.status(400).json({ success: false, message: "Member ID and Trainer ID are required." });
+    if (!memberId) {
+      return res.status(400).json({ success: false, message: "Member ID is required." });
+    }
+
+    if (!trainerId || trainerId === "none" || Number(trainerId) === 0) {
+      // Unassign trainer
+      await pool.query("UPDATE trainee_assignments SET status = 'Released' WHERE member_id = ?", [memberId]);
+      await pool.query("UPDATE users SET trainer_id = NULL WHERE id = ?", [memberId]);
+      return res.status(200).json({ success: true, message: "Coach unassigned successfully." });
     }
 
     // Deactivate previous active assignment
@@ -246,6 +253,9 @@ export const assignTrainerToMember = async (req, res) => {
       "INSERT INTO trainee_assignments (trainer_id, member_id, status) VALUES (?, ?, 'Active')",
       [trainerId, memberId]
     );
+
+    // Keep users table in sync
+    await pool.query("UPDATE users SET trainer_id = ? WHERE id = ?", [trainerId, memberId]);
 
     const [[trainer]] = await pool.query("SELECT full_name FROM users WHERE id = ?", [trainerId]);
     const [[member]] = await pool.query("SELECT full_name FROM users WHERE id = ?", [memberId]);

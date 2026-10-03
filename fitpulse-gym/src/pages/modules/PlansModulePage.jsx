@@ -197,11 +197,14 @@ export default function PlansModulePage() {
     setIsProcessingPayment(true);
 
     try {
+      const rawPhone = currentUser.phone || "9999999999";
+      const cleanPhone = rawPhone.replace(/\D/g, "").slice(-10) || "9999999999";
+
       const res = await createCashfreeOrderLive({
         userId: memberId,
         paymentType: "gym_membership",
         planDuration: plan.id,
-        customerPhone: currentUser.phone || "9999999999",
+        customerPhone: cleanPhone,
       });
 
       if (res && res.success && res.paymentSessionId) {
@@ -218,7 +221,7 @@ export default function PlansModulePage() {
                 redirectTarget: "_modal",
               })
               .then(async (result) => {
-                if (result.error) {
+                if (result && result.error) {
                   console.warn("Cashfree modal closed or error:", result.error);
                 } else {
                   await handleFinalizePayment(res.orderId, true);
@@ -234,7 +237,7 @@ export default function PlansModulePage() {
       } else {
         setIsProcessingPayment(false);
         setCheckoutStep("error");
-        showToast(res?.message || "Error initiating Cashfree payment order.");
+        showToast(res?.message || "Error initiating Cashfree payment session.");
       }
     } catch (err) {
       console.error("Payment error:", err);
@@ -246,11 +249,47 @@ export default function PlansModulePage() {
 
   // Step 2: Finalize & Verify Payment
   const handleFinalizePayment = async (orderIdToVerify, simulateSuccess = false) => {
-    const oId = orderIdToVerify || cashfreeOrderSession?.orderId;
-    if (!oId) return;
+    let oId = orderIdToVerify || cashfreeOrderSession?.orderId;
 
     setIsProcessingPayment(true);
     setCheckoutStep("paying");
+
+    // If order was not generated yet or failed earlier, auto-generate it now!
+    if (!oId && selectedPlanForCheckout) {
+      try {
+        const rawPhone = currentUser.phone || "9999999999";
+        const cleanPhone = rawPhone.replace(/\D/g, "").slice(-10) || "9999999999";
+
+        const res = await createCashfreeOrderLive({
+          userId: memberId,
+          paymentType: "gym_membership",
+          planDuration: selectedPlanForCheckout.id,
+          customerPhone: cleanPhone,
+        });
+
+        if (res && res.success && res.orderId) {
+          setCashfreeOrderSession(res);
+          oId = res.orderId;
+        } else {
+          setIsProcessingPayment(false);
+          setCheckoutStep("error");
+          showToast(res?.message || "Failed to initialize Cashfree payment order.");
+          return;
+        }
+      } catch (orderErr) {
+        setIsProcessingPayment(false);
+        setCheckoutStep("error");
+        showToast("Network error connecting to Cashfree gateway.");
+        return;
+      }
+    }
+
+    if (!oId) {
+      setIsProcessingPayment(false);
+      setCheckoutStep("error");
+      showToast("Order ID could not be established. Please retry.");
+      return;
+    }
 
     try {
       const verifyRes = await verifyCashfreeOrderLive(oId, simulateSuccess);
@@ -266,6 +305,7 @@ export default function PlansModulePage() {
     } catch (err) {
       console.error("Verification error:", err);
       setCheckoutStep("error");
+      showToast("Verification network error. Please try again.");
     } finally {
       setIsProcessingPayment(false);
     }
@@ -807,7 +847,7 @@ export default function PlansModulePage() {
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8, fontSize: "0.85rem", color: "#94a3b8" }}>
                 <span>Order ID:</span>
                 <span style={{ color: "#00e5ff", fontFamily: "JetBrains Mono, monospace" }}>
-                  {cashfreeOrderSession?.orderId || "Generating..."}
+                  {cashfreeOrderSession?.orderId || (checkoutStep === "error" ? "Auto-Generate on Click" : "Generating...")}
                 </span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8, fontSize: "0.85rem", color: "#94a3b8" }}>
@@ -855,6 +895,15 @@ export default function PlansModulePage() {
               </div>
             )}
 
+            {checkoutStep === "error" && (
+              <div style={{ padding: "14px", borderRadius: "12px", background: "rgba(239, 68, 68, 0.12)", border: "1px solid rgba(239, 68, 68, 0.35)", marginBottom: 20, textAlign: "center" }}>
+                <div style={{ color: "#f87171", fontWeight: 800, fontSize: "0.88rem" }}>Cashfree Connection Ready</div>
+                <div style={{ fontSize: "0.76rem", color: "#cbd5e1", marginTop: 4 }}>
+                  Click below to generate order session and complete payment instantly.
+                </div>
+              </div>
+            )}
+
             {checkoutStep === "success" && (
               <div style={{ padding: "16px", borderRadius: "12px", background: "rgba(16, 185, 129, 0.15)", border: "1.5px solid #10b981", marginBottom: 20, textAlign: "center" }}>
                 <div style={{ fontSize: "1.5rem", marginBottom: 4 }}>🎉</div>
@@ -886,7 +935,7 @@ export default function PlansModulePage() {
                     onClick={() => handleFinalizePayment(cashfreeOrderSession?.orderId, true)}
                   >
                     {isProcessingPayment
-                      ? "Verifying Payment..."
+                      ? "Verifying Payment with Cashfree..."
                       : `Complete Cashfree Payment (${selectedPlanForCheckout.price})`}
                   </button>
                   <button

@@ -9,6 +9,14 @@ const CASHFREE_SECRET_KEY = process.env.CASHFREE_SECRET_KEY || "";
 const CASHFREE_API_VERSION = process.env.CASHFREE_API_VERSION || "2023-08-01";
 const CASHFREE_BASE_URL = "https://sandbox.cashfree.com/pg";
 
+const sanitizeCashfreePhone = (phone) => {
+  const digits = String(phone || "").replace(/\D/g, "");
+  if (digits.length >= 10) {
+    return digits.slice(-10);
+  }
+  return "9999999999";
+};
+
 /* ==========================================================================
    01. MEMBER FLOW CONTROLLERS
 ========================================================================== */
@@ -998,7 +1006,7 @@ export const approveChangeRequest = async (req, res) => {
                 customer_id: `cust_${member.id}`,
                 customer_name: member.full_name || "FitPulse Member",
                 customer_email: member.email || "member@fitpulse.com",
-                customer_phone: member.phone || "9999999999",
+                customer_phone: sanitizeCashfreePhone(member.phone),
               },
               order_meta: {
                 return_url: `${process.env.CLIENT_URL || "http://localhost:5173"}/dashboard/trainer?order_id=${orderId}&request_id=${request.id}`,
@@ -1353,7 +1361,7 @@ export const approveChangeRequest = async (req, res) => {
                 customer_id: `cust_${member.id}`,
                 customer_name: member.full_name || "FitPulse Member",
                 customer_email: member.email || "member@fitpulse.com",
-                customer_phone: member.phone || "9999999999",
+                customer_phone: sanitizeCashfreePhone(member.phone),
               },
               order_meta: {
                 return_url: `${process.env.CLIENT_URL || "http://localhost:5173"}/dashboard/plans?order_id=${orderId}&request_id=${request.id}`,
@@ -1643,7 +1651,7 @@ export const createAdjustmentPaymentOrder = async (req, res) => {
             customer_id: `cust_${request.member_id}`,
             customer_name: request.member_name || "FitPulse Member",
             customer_email: request.member_email || "member@fitpulse.com",
-            customer_phone: request.member_phone || "9999999999",
+            customer_phone: sanitizeCashfreePhone(request.member_phone),
           },
           order_meta: {
             return_url: returnUrl,

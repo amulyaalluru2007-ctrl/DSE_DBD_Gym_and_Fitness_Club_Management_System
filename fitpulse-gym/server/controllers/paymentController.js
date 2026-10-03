@@ -41,6 +41,14 @@ export const GYM_PLANS = {
 
 export const TRAINER_MONTHLY_FEE = 2999.00;
 
+export const sanitizeCashfreePhone = (phone) => {
+  const digits = String(phone || "").replace(/\D/g, "");
+  if (digits.length >= 10) {
+    return digits.slice(-10);
+  }
+  return "9999999999";
+};
+
 /* =====================================================
    01. CREATE CASHFREE PAYMENT ORDER
 ===================================================== */
@@ -119,7 +127,7 @@ export const createCashfreeOrder = async (req, res) => {
         customer_id: `cust_${user.id}`,
         customer_name: user.full_name || "FitPulse Member",
         customer_email: user.email || "member@fitpulse.com",
-        customer_phone: customerPhone || user.phone || "9999999999",
+        customer_phone: sanitizeCashfreePhone(customerPhone || user.phone),
       },
       order_meta: {
         return_url: returnUrl,
