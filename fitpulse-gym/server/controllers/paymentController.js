@@ -253,18 +253,42 @@ export const verifyCashfreeOrder = async (req, res) => {
         orderStatus = cfOrder.order_status;
         console.log(`[Cashfree Verification] Order ${orderId} live status: "${orderStatus}"`);
       }
+
+      // Check payments endpoint if order_status is still ACTIVE
+      if (orderStatus !== "PAID") {
+        const cfPayRes = await fetch(`${CASHFREE_BASE_URL}/orders/${orderId}/payments`, {
+          method: "GET",
+          headers: {
+            "x-client-id": CASHFREE_APP_ID,
+            "x-client-secret": CASHFREE_SECRET_KEY,
+            "x-api-version": CASHFREE_API_VERSION,
+          },
+        });
+        if (cfPayRes.ok) {
+          const paymentsList = await cfPayRes.json();
+          if (Array.isArray(paymentsList)) {
+            const successfulPayment = paymentsList.find((p) => p.payment_status === "SUCCESS");
+            if (successfulPayment) {
+              orderStatus = "PAID";
+              cfPaymentId = successfulPayment.cf_payment_id || cfPaymentId;
+              paymentMethod = successfulPayment.payment_group || paymentMethod;
+              console.log(`[Cashfree Verification] Found successful payment for order ${orderId}`);
+            }
+          }
+        }
+      }
     } catch (cfErr) {
       console.warn("Cashfree API status check warning:", cfErr);
     }
 
-    // In sandbox test mode, if simulateSuccess is passed or order is PAID:
-    const isPaid = orderStatus === "PAID" || simulateSuccess === true;
+    // Strict Anti-Spoofing: ONLY grant subscription if Cashfree verifies as PAID!
+    const isPaid = orderStatus === "PAID";
 
     if (!isPaid) {
-      return res.status(200).json({
+      return res.status(400).json({
         success: false,
         paymentStatus: orderStatus,
-        message: `Order status is "${orderStatus}". Payment has not been finalized yet.`,
+        message: `Cashfree gateway status is "${orderStatus}". Payment has not succeeded. Membership was not activated.`,
       });
     }
 

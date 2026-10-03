@@ -1072,6 +1072,44 @@ export const updateTrainerProfileLive = async (trainerId, payload) => {
   }
 };
 
+/* =========================================================================
+   COMMUNITY / ATHLETE NETWORK API
+========================================================================= */
 
+export const fetchCommunityPostsLive = async (userId = 0) => {
+  try {
+    const res = await fetch(`${SOCKET_SERVER_URL}/api/community/posts?userId=${userId}`);
+    return await res.json();
+  } catch (err) {
+    console.error("fetchCommunityPostsLive error:", err);
+    return { success: false, posts: [] };
+  }
+};
 
+export const createCommunityPostLive = async (payload) => {
+  try {
+    const res = await fetch(`${SOCKET_SERVER_URL}/api/community/posts`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    return await res.json();
+  } catch (err) {
+    console.error("createCommunityPostLive error:", err);
+    return { success: false, message: "Network error publishing community post." };
+  }
+};
 
+export const toggleLikeCommunityPostLive = async (postId, userId = 1) => {
+  try {
+    const res = await fetch(`${SOCKET_SERVER_URL}/api/community/posts/${postId}/like`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId }),
+    });
+    return await res.json();
+  } catch (err) {
+    console.error("toggleLikeCommunityPostLive error:", err);
+    return { success: false, message: "Network error updating like." };
+  }
+};

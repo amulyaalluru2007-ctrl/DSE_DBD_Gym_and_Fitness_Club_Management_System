@@ -267,16 +267,21 @@ export default function TrainersModulePage() {
       if (window.Cashfree && orderRes.paymentSessionId) {
         try {
           const cashfree = window.Cashfree({ mode: "sandbox" });
-          await cashfree.checkout({
+          const result = await cashfree.checkout({
             paymentSessionId: orderRes.paymentSessionId,
             redirectTarget: "_modal",
           });
+          if (result && result.error) {
+            showToast("Payment was cancelled or failed on Cashfree. Coach change was not completed.", "error");
+            setIsPayingActiveAdjustment(false);
+            return;
+          }
         } catch (cfModalErr) {
           console.warn("Cashfree checkout modal notice:", cfModalErr);
         }
       }
 
-      const verifyRes = await verifyAdjustmentPaymentLive(orderRes.orderId, true);
+      const verifyRes = await verifyAdjustmentPaymentLive(orderRes.orderId, false);
       if (verifyRes && verifyRes.success) {
         showToast(
           verifyRes.newPlanName
@@ -420,17 +425,22 @@ export default function TrainersModulePage() {
         if (window.Cashfree && cfOrder.paymentSessionId) {
           try {
             const cashfree = window.Cashfree({ mode: "sandbox" });
-            await cashfree.checkout({
+            const result = await cashfree.checkout({
               paymentSessionId: cfOrder.paymentSessionId,
               redirectTarget: "_modal",
             });
+            if (result && result.error) {
+              showToast("Payment was cancelled or failed on Cashfree. Coach was not assigned.", "error");
+              setIsProcessingPayment(false);
+              return;
+            }
           } catch (cfModalErr) {
             console.warn("Cashfree checkout modal notice:", cfModalErr);
           }
         }
 
         // Step 3: Finalize & verify payment via Cashfree PG
-        const verifyRes = await verifyCashfreeOrderLive(cfOrder.orderId, true);
+        const verifyRes = await verifyCashfreeOrderLive(cfOrder.orderId, false);
 
         if (verifyRes && verifyRes.success) {
           setAssignedCoach(targetHireCoach);

@@ -223,8 +223,11 @@ export default function PlansModulePage() {
               .then(async (result) => {
                 if (result && result.error) {
                   console.warn("Cashfree modal closed or error:", result.error);
+                  showToast("Cashfree checkout cancelled or failed. Plan was not activated.");
+                } else if (result && result.paymentDetails) {
+                  await handleFinalizePayment(res.orderId, false);
                 } else {
-                  await handleFinalizePayment(res.orderId, true);
+                  await handleFinalizePayment(res.orderId, false);
                 }
               })
               .catch((sdkErr) => {
@@ -932,11 +935,11 @@ export default function PlansModulePage() {
                       boxShadow: "0 4px 18px rgba(16, 185, 129, 0.4)",
                     }}
                     disabled={isProcessingPayment}
-                    onClick={() => handleFinalizePayment(cashfreeOrderSession?.orderId, true)}
+                    onClick={() => handleFinalizePayment(cashfreeOrderSession?.orderId, false)}
                   >
                     {isProcessingPayment
                       ? "Verifying Payment with Cashfree..."
-                      : `Complete Cashfree Payment (${selectedPlanForCheckout.price})`}
+                      : `Verify Gateway Status (${selectedPlanForCheckout.price})`}
                   </button>
                   <button
                     type="button"

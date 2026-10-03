@@ -70,6 +70,11 @@ import {
   markAsRead,
   markAllAsRead,
 } from "../controllers/notificationController.js";
+import {
+  getCommunityPosts,
+  createCommunityPost,
+  toggleLikeCommunityPost,
+} from "../controllers/communityController.js";
 
 const router = express.Router();
 
@@ -178,5 +183,12 @@ router.get("/notifications", getNotifications);
 router.get("/notifications/unread-count", getUnreadCount);
 router.post("/notifications/:id/read", markAsRead);
 router.post("/notifications/read-all", markAllAsRead);
+
+// =========================================================================
+// Athlete Network / Community Posts API
+// =========================================================================
+router.get("/community/posts", getCommunityPosts);
+router.post("/community/posts", createCommunityPost);
+router.post("/community/posts/:id/like", toggleLikeCommunityPost);
 
 export default router;

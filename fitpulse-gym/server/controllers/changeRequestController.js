@@ -1767,8 +1767,9 @@ export const verifyAdjustmentPayment = async (req, res) => {
       return res.status(200).json({ success: true, message: "Payment already verified and plan change activated." });
     }
 
-    // Cashfree Status Check
-    let isPaid = simulateSuccess;
+    // Strict Cashfree Status Check - no bypass
+    let isPaid = false;
+    let orderStatus = "PENDING";
     try {
       const cfRes = await fetch(`${CASHFREE_BASE_URL}/orders/${orderId}`, {
         headers: {
@@ -1779,8 +1780,29 @@ export const verifyAdjustmentPayment = async (req, res) => {
       });
       if (cfRes.ok) {
         const cfData = await cfRes.json();
+        orderStatus = cfData.order_status;
         if (cfData.order_status === "PAID") {
           isPaid = true;
+        }
+      }
+
+      if (!isPaid) {
+        const cfPayRes = await fetch(`${CASHFREE_BASE_URL}/orders/${orderId}/payments`, {
+          headers: {
+            "x-client-id": CASHFREE_APP_ID,
+            "x-client-secret": CASHFREE_SECRET_KEY,
+            "x-api-version": CASHFREE_API_VERSION,
+          },
+        });
+        if (cfPayRes.ok) {
+          const paymentsList = await cfPayRes.json();
+          if (Array.isArray(paymentsList)) {
+            const successfulPayment = paymentsList.find((p) => p.payment_status === "SUCCESS");
+            if (successfulPayment) {
+              isPaid = true;
+              orderStatus = "PAID";
+            }
+          }
         }
       }
     } catch (cfErr) {
@@ -1788,7 +1810,11 @@ export const verifyAdjustmentPayment = async (req, res) => {
     }
 
     if (!isPaid) {
-      return res.status(400).json({ success: false, message: "Payment has not been completed on Cashfree gateway." });
+      return res.status(400).json({
+        success: false,
+        paymentStatus: orderStatus,
+        message: `Cashfree gateway status is "${orderStatus}". Payment has not been completed or failed. Request was not processed.`,
+      });
     }
 
     // Mark payment record as PAID

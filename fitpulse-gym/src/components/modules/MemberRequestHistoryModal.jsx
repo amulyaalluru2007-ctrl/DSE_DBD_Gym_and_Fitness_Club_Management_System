@@ -84,17 +84,22 @@ export default function MemberRequestHistoryModal({
       if (window.Cashfree && orderRes.paymentSessionId) {
         try {
           const cashfree = window.Cashfree({ mode: "sandbox" });
-          await cashfree.checkout({
+          const result = await cashfree.checkout({
             paymentSessionId: orderRes.paymentSessionId,
             redirectTarget: "_modal",
           });
+          if (result && result.error) {
+            alert("Payment was cancelled or failed on Cashfree. Request was not finalized.");
+            setPayingId(null);
+            return;
+          }
         } catch (cfModalErr) {
           console.warn("Cashfree checkout modal notice:", cfModalErr);
         }
       }
 
       // Step 3: Finalize & verify payment
-      const verifyRes = await verifyAdjustmentPaymentLive(orderRes.orderId, true);
+      const verifyRes = await verifyAdjustmentPaymentLive(orderRes.orderId, false);
       if (verifyRes && verifyRes.success) {
         const successMsg = verifyRes.newPlanName
           ? `Payment verified! Plan ${verifyRes.newPlanName} is now active.`
