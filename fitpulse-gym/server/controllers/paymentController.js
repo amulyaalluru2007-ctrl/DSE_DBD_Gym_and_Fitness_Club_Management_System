@@ -3,7 +3,7 @@ import { broadcastEvent } from "../socket.js";
 import { createNotification } from "../services/notificationService.js";
 
 const CASHFREE_APP_ID = process.env.CASHFREE_APP_ID || "TEST11229889069c15c0e7ceb1c81ce998892211";
-const CASHFREE_SECRET_KEY = process.env.CASHFREE_SECRET_KEY || "cfsk_ma_test_d721997453c0b962407d98d405781093_eb2735f6";
+const CASHFREE_SECRET_KEY = process.env.CASHFREE_SECRET_KEY || "";
 const CASHFREE_API_VERSION = process.env.CASHFREE_API_VERSION || "2023-08-01";
 const CASHFREE_BASE_URL = "https://sandbox.cashfree.com/pg";
 

@@ -48,3 +48,5 @@ local.properties
 *.tmp
 ~*
 *.temp
+
+.vercel

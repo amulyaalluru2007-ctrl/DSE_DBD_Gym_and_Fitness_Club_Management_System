@@ -80,10 +80,26 @@ export default function MemberRequestHistoryModal({
         return;
       }
 
-      // Step 2: In Cashfree sandbox/environment, simulate or verify checkout
+      // Step 2: Open Cashfree Web SDK modal if available
+      if (window.Cashfree && orderRes.paymentSessionId) {
+        try {
+          const cashfree = window.Cashfree({ mode: "sandbox" });
+          await cashfree.checkout({
+            paymentSessionId: orderRes.paymentSessionId,
+            redirectTarget: "_modal",
+          });
+        } catch (cfModalErr) {
+          console.warn("Cashfree checkout modal notice:", cfModalErr);
+        }
+      }
+
+      // Step 3: Finalize & verify payment
       const verifyRes = await verifyAdjustmentPaymentLive(orderRes.orderId, true);
       if (verifyRes && verifyRes.success) {
-        setToastMsg(`Payment verified! Coach ${verifyRes.newTrainerName} is now actively assigned.`);
+        const successMsg = verifyRes.newPlanName
+          ? `Payment verified! Plan ${verifyRes.newPlanName} is now active.`
+          : `Payment verified! Coach ${verifyRes.newTrainerName || "replacement"} is now actively assigned.`;
+        setToastMsg(successMsg);
         loadRequests();
         if (onPaymentSuccess) onPaymentSuccess(verifyRes);
       } else {
@@ -162,9 +178,22 @@ export default function MemberRequestHistoryModal({
           ) : (
             <div className="mct-history-list">
               {requests.map((r) => {
-                const adjustmentINR = r.final_adjustment_minor ? r.final_adjustment_minor / 100 : 0;
+                const isPlanChange = r.request_type === "member_change_plan";
+                const adjustmentINR = isPlanChange
+                  ? Number(r.plan_adjustment_inr || (r.charge_amount_minor ? r.charge_amount_minor / 100 : 0))
+                  : (r.final_adjustment_minor ? r.final_adjustment_minor / 100 : 0);
                 const isCharge = adjustmentINR > 0;
                 const isCredit = adjustmentINR < 0;
+
+                const planNameFormatted = (key) => {
+                  switch (key) {
+                    case "1_month": return "1 Month Gym Membership";
+                    case "3_months": return "3 Months Gym Membership";
+                    case "6_months": return "6 Months Gym Membership";
+                    case "1_year": return "1 Year Gym Membership";
+                    default: return key ? key.replace(/_/g, " ").toUpperCase() : "Gym Membership";
+                  }
+                };
 
                 return (
                   <div key={r.id} className="mct-history-card">
@@ -185,16 +214,33 @@ export default function MemberRequestHistoryModal({
                     </div>
 
                     <div className="mct-history-coaches">
-                      <div className="mct-coach-col">
-                        <span className="mct-coach-col-label">From Assigned Coach</span>
-                        <span className="mct-coach-col-name">{r.current_trainer_name || "Assigned Coach"}</span>
-                      </div>
-                      <div className="mct-coach-col">
-                        <span className="mct-coach-col-label">To Requested Coach</span>
-                        <span className="mct-coach-col-name" style={{ color: "#00f2fe" }}>
-                          {r.preferred_trainer_name || "Gym Allocation Pool"}
-                        </span>
-                      </div>
+                      {isPlanChange ? (
+                        <>
+                          <div className="mct-coach-col">
+                            <span className="mct-coach-col-label">Current Membership Plan</span>
+                            <span className="mct-coach-col-name">{r.current_plan_name || "Active Plan"}</span>
+                          </div>
+                          <div className="mct-coach-col">
+                            <span className="mct-coach-col-label">Requested Upgrade Plan</span>
+                            <span className="mct-coach-col-name" style={{ color: "#00f2fe" }}>
+                              {planNameFormatted(r.requested_plan_duration)}
+                            </span>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="mct-coach-col">
+                            <span className="mct-coach-col-label">From Assigned Coach</span>
+                            <span className="mct-coach-col-name">{r.current_trainer_name || "Assigned Coach"}</span>
+                          </div>
+                          <div className="mct-coach-col">
+                            <span className="mct-coach-col-label">To Requested Coach</span>
+                            <span className="mct-coach-col-name" style={{ color: "#00f2fe" }}>
+                              {r.preferred_trainer_name || "Gym Allocation Pool"}
+                            </span>
+                          </div>
+                        </>
+                      )}
                     </div>
 
                     <div className="mct-history-footer">
@@ -210,9 +256,9 @@ export default function MemberRequestHistoryModal({
                           }`}
                         >
                           {isCharge
-                            ? `+₹${adjustmentINR} (Due)`
+                            ? `+₹${adjustmentINR} (Due via Cashfree)`
                             : isCredit
-                            ? `-₹${Math.abs(adjustmentINR)} (Account Credit)`
+                            ? `-₹${Math.abs(adjustmentINR)} (No Refund / Forfeited)`
                             : "₹0.00 (Neutral)"}
                         </span>
                       </div>
@@ -225,7 +271,7 @@ export default function MemberRequestHistoryModal({
                             disabled={payingId === r.id}
                             className="mct-pay-btn"
                           >
-                            {payingId === r.id ? "Verifying..." : `💳 Pay ₹${adjustmentINR}`}
+                            {payingId === r.id ? "Verifying..." : `💳 Pay ₹${adjustmentINR} via Cashfree`}
                           </button>
                         )}
 

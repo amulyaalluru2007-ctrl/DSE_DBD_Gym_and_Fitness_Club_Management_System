@@ -177,11 +177,32 @@ export default function TrainersModulePage() {
       loadMemberProfileAndRequests(memberId);
     });
 
+    // Real-time listener for payment and membership events
+    const unsubPayment = subscribeRealtime("payment:success", () => {
+      fetchUserMembershipStatusLive(memberId).then((res) => {
+        if (res && res.success && res.gymMembership) {
+          setGymMembershipStatus(res.gymMembership);
+        }
+      });
+      loadMemberProfileAndRequests(memberId);
+    });
+
+    const unsubMembership = subscribeRealtime("membership:updated", () => {
+      fetchUserMembershipStatusLive(memberId).then((res) => {
+        if (res && res.success && res.gymMembership) {
+          setGymMembershipStatus(res.gymMembership);
+        }
+      });
+      loadMemberProfileAndRequests(memberId);
+    });
+
     return () => {
       if (unsubAssign) unsubAssign();
       if (unsubRelease) unsubRelease();
       if (unsubReq) unsubReq();
       if (unsubReqCreated) unsubReqCreated();
+      if (unsubPayment) unsubPayment();
+      if (unsubMembership) unsubMembership();
     };
   }, []);
 
@@ -242,9 +263,27 @@ export default function TrainersModulePage() {
         setIsPayingActiveAdjustment(false);
         return;
       }
+
+      if (window.Cashfree && orderRes.paymentSessionId) {
+        try {
+          const cashfree = window.Cashfree({ mode: "sandbox" });
+          await cashfree.checkout({
+            paymentSessionId: orderRes.paymentSessionId,
+            redirectTarget: "_modal",
+          });
+        } catch (cfModalErr) {
+          console.warn("Cashfree checkout modal notice:", cfModalErr);
+        }
+      }
+
       const verifyRes = await verifyAdjustmentPaymentLive(orderRes.orderId, true);
       if (verifyRes && verifyRes.success) {
-        showToast(`Payment verified! Coach ${verifyRes.newTrainerName} is now your active trainer!`, "success");
+        showToast(
+          verifyRes.newPlanName
+            ? `Payment verified! Plan ${verifyRes.newPlanName} is now active!`
+            : `Payment verified! Coach ${verifyRes.newTrainerName || "replacement"} is now your active trainer!`,
+          "success"
+        );
         loadMemberProfileAndRequests(currentMemberId);
       } else {
         showToast(verifyRes?.message || "Payment verification failed.", "error");
@@ -377,7 +416,20 @@ export default function TrainersModulePage() {
       });
 
       if (cfOrder && cfOrder.success && cfOrder.orderId) {
-        // Step 2: Finalize & verify payment via Cashfree PG
+        // Step 2: Open Cashfree Web SDK checkout modal if available
+        if (window.Cashfree && cfOrder.paymentSessionId) {
+          try {
+            const cashfree = window.Cashfree({ mode: "sandbox" });
+            await cashfree.checkout({
+              paymentSessionId: cfOrder.paymentSessionId,
+              redirectTarget: "_modal",
+            });
+          } catch (cfModalErr) {
+            console.warn("Cashfree checkout modal notice:", cfModalErr);
+          }
+        }
+
+        // Step 3: Finalize & verify payment via Cashfree PG
         const verifyRes = await verifyCashfreeOrderLive(cfOrder.orderId, true);
 
         if (verifyRes && verifyRes.success) {
@@ -387,6 +439,7 @@ export default function TrainersModulePage() {
           showToast(
             `✓ Cashfree Payment Verified! Coach ${targetHireCoach.name} is now your dedicated master trainer.`
           );
+          loadMemberProfileAndRequests(currentMemberId);
           setTimeout(() => {
             const chatEl = document.getElementById("direct-chat-section");
             if (chatEl) chatEl.scrollIntoView({ behavior: "smooth" });

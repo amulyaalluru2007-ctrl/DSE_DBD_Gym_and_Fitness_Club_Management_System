@@ -5,7 +5,7 @@ import { createNotification, logAudit } from "../services/notificationService.js
 import { broadcastEvent } from "../socket.js";
 
 const CASHFREE_APP_ID = process.env.CASHFREE_APP_ID || "TEST11229889069c15c0e7ceb1c81ce998892211";
-const CASHFREE_SECRET_KEY = process.env.CASHFREE_SECRET_KEY || "cfsk_ma_test_d721997453c0b962407d98d405781093_eb2735f6";
+const CASHFREE_SECRET_KEY = process.env.CASHFREE_SECRET_KEY || "";
 const CASHFREE_API_VERSION = process.env.CASHFREE_API_VERSION || "2023-08-01";
 const CASHFREE_BASE_URL = "https://sandbox.cashfree.com/pg";
 
@@ -1585,9 +1585,9 @@ export const createAdjustmentPaymentOrder = async (req, res) => {
               m.full_name as member_name, m.email as member_email, m.phone as member_phone,
               pt.full_name as new_trainer_name
        FROM trainer_change_requests r
-       JOIN trainer_change_billing_adjustments ba ON r.billing_adjustment_id = ba.id
        JOIN users m ON r.member_id = m.id
-       JOIN users pt ON r.preferred_trainer_id = pt.id
+       LEFT JOIN trainer_change_billing_adjustments ba ON r.billing_adjustment_id = ba.id
+       LEFT JOIN users pt ON r.preferred_trainer_id = pt.id
        WHERE r.id = ? AND r.member_id = ?`,
       [requestId, memberId]
     );
@@ -1600,8 +1600,27 @@ export const createAdjustmentPaymentOrder = async (req, res) => {
       return res.status(400).json({ success: false, message: `Request is not awaiting payment (status: ${request.status}).` });
     }
 
-    const chargeINR = Number((request.charge_amount_minor / 100).toFixed(2));
-    const orderId = `order_TC_${request.id}_${Date.now()}`;
+    const isPlanChange = request.request_type === "member_change_plan";
+    let chargeINR = 0;
+    let orderId = "";
+    let orderNote = "";
+    let returnUrl = "";
+    let planName = "";
+
+    if (isPlanChange) {
+      const targetPlan = GYM_PLANS[request.requested_plan_duration] || { name: "Gym Plan Upgrade" };
+      chargeINR = Number(request.plan_adjustment_inr || (request.charge_amount_minor ? request.charge_amount_minor / 100 : 0));
+      orderId = `order_PC_${request.id}_${Date.now()}`;
+      orderNote = `FitPulse Membership Plan Upgrade - ${targetPlan.name} (${request.request_number})`;
+      returnUrl = `${process.env.CLIENT_URL || "http://localhost:5173"}/dashboard/plans?order_id=${orderId}&request_id=${request.id}`;
+      planName = `Prorated Upgrade (${targetPlan.name})`;
+    } else {
+      chargeINR = Number((request.charge_amount_minor / 100).toFixed(2));
+      orderId = `order_TC_${request.id}_${Date.now()}`;
+      orderNote = `FitPulse Coach Upgrade Settlement - Coach ${request.new_trainer_name || "Coach"}`;
+      returnUrl = `${process.env.CLIENT_URL || "http://localhost:5173"}/dashboard/trainer?order_id=${orderId}&request_id=${request.id}`;
+      planName = `Prorated Upgrade Fee (${request.new_trainer_name || "New Coach"})`;
+    }
 
     // Create Cashfree Order
     let paymentSessionId = null;
@@ -1627,9 +1646,9 @@ export const createAdjustmentPaymentOrder = async (req, res) => {
             customer_phone: request.member_phone || "9999999999",
           },
           order_meta: {
-            return_url: `${process.env.CLIENT_URL || "http://localhost:5173"}/dashboard/trainer?order_id=${orderId}&request_id=${request.id}`,
+            return_url: returnUrl,
           },
-          order_note: `FitPulse Coach Upgrade Settlement - Coach ${request.new_trainer_name}`,
+          order_note: orderNote,
         }),
       });
 
@@ -1637,32 +1656,37 @@ export const createAdjustmentPaymentOrder = async (req, res) => {
       if (cfResponse.ok) {
         paymentSessionId = cfData.payment_session_id;
         cfOrderId = cfData.cf_order_id;
+      } else {
+        console.warn("[Cashfree PG Order Error]:", cfData);
       }
     } catch (cfErr) {
       console.warn("Cashfree create order warning:", cfErr);
     }
 
-    // Update adjustment payment_order_id
-    await pool.query("UPDATE trainer_change_billing_adjustments SET payment_order_id = ? WHERE id = ?", [
-      orderId,
-      request.adj_id,
-    ]);
+    if (!isPlanChange && request.adj_id) {
+      // Update adjustment payment_order_id
+      await pool.query("UPDATE trainer_change_billing_adjustments SET payment_order_id = ? WHERE id = ?", [
+        orderId,
+        request.adj_id,
+      ]);
+    }
 
     // Insert payment record
     await pool.query(
       `INSERT INTO payments (
         order_id, cf_order_id, user_id, user_name, user_email, payment_type, plan_name,
         trainer_id, trainer_name, amount, currency, payment_status, payment_method
-      ) VALUES (?, ?, ?, ?, ?, 'trainer_change_adjustment', ?, ?, ?, ?, 'INR', 'PENDING', 'Cashfree PG')`,
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'INR', 'PENDING', 'Cashfree PG')`,
       [
         orderId,
         cfOrderId,
         request.member_id,
         request.member_name,
         request.member_email,
-        `Prorated Upgrade Fee (${request.new_trainer_name})`,
-        request.preferred_trainer_id,
-        request.new_trainer_name,
+        isPlanChange ? "plan_change_adjustment" : "trainer_change_adjustment",
+        planName,
+        request.preferred_trainer_id || null,
+        request.new_trainer_name || null,
         chargeINR,
       ]
     );
@@ -1676,6 +1700,7 @@ export const createAdjustmentPaymentOrder = async (req, res) => {
       currency: "INR",
       requestNumber: request.request_number,
       newTrainerName: request.new_trainer_name,
+      planName,
     });
   } catch (error) {
     console.error("Error creating adjustment payment order:", error);
@@ -1706,13 +1731,16 @@ export const verifyAdjustmentPayment = async (req, res) => {
     // If not found in trainer billing adjustments, check if it's a plan change request order
     let planRequest = null;
     if (!adjustment) {
+      const match = orderId.match(/^order_PC_(\d+)_/);
+      const reqIdFromOrder = match ? Number(match[1]) : 0;
+
       const [[pReq]] = await pool.query(
         `SELECT r.*, p.amount as payment_amount, p.plan_name as payment_plan_name
-         FROM trainer_change_requests r
-         JOIN payments p ON p.order_id = ?
-         WHERE r.request_type = 'member_change_plan'
-           AND (p.order_id = ? OR r.request_number = p.plan_name)`,
-        [orderId, orderId]
+         FROM payments p
+         JOIN trainer_change_requests r ON (r.id = ? OR (r.member_id = p.user_id AND r.request_type = 'member_change_plan'))
+         WHERE p.order_id = ?
+         ORDER BY (r.id = ?) DESC, r.id DESC LIMIT 1`,
+        [reqIdFromOrder, orderId, reqIdFromOrder]
       );
       if (pReq) {
         planRequest = pReq;
